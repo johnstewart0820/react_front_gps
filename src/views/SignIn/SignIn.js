@@ -11,7 +11,7 @@ import {
 	Grid
 } from '@material-ui/core';
 import useStyles from './style';
-// import auth from '../../apis/auth';
+import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
 import constants from '../../utils/constants';
@@ -22,6 +22,7 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import AppleLogin from 'react-apple-login';
 import { GoogleIcon } from 'assets/svg/icons';
+import { isJSDocOptionalType } from 'typescript';
 
 const SignIn = props => {
   const { history } = props;
@@ -44,7 +45,7 @@ const SignIn = props => {
     setCheckStatus(!checkStatus);
   };
   const handleSignIn = event => {
-    setTryLogin(true);
+    setTryLogin(true);		
     if ((error && ((error.email && error.email.length > 0) || (error.password && error.password.length > 0))) || !input.email || !input.password) {
       addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
@@ -56,19 +57,20 @@ const SignIn = props => {
         storage.removeStorage('email');
         storage.removeStorage('password');
       }
-      // auth
-      //   .login(input.email, input.password)	
-      //   .then(response => {
-      //     if (response.code === 200) {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-      //       setTimeout(function () { history.push('/cockpit'); }, 1000);
+			
+      auth
+        .login(input.email, input.password, false)	
+        .then(response => {
+          if (response.code === 200) {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+            setTimeout(function () { history.push('/cockpit'); }, 1000);
 
-      //     } else {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
-      //     }
-      //   })
+          } else {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+          }
+        })
     }
   };
   useEffect(() => {
@@ -94,7 +96,6 @@ const SignIn = props => {
     } else {
       arr["password"] = "";
     }
-
     setError(arr);
   }, [input]);
 
@@ -106,6 +107,27 @@ const SignIn = props => {
 
 	const responseGoogle = (response) => {
 		console.log(response);
+		setProgressStatus(true);
+		const email = response.profileObj.email;
+		const firstName = response.profileObj.givenName;
+		const lastName = response.profileObj.familyName;
+		auth
+        .login(email, '', true, firstName, lastName)
+        .then(response => {
+          if (response.code === 200) {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+            setTimeout(function () { history.push('/cockpit'); }, 1000);
+
+          } else {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+          }
+        })
+	}
+
+	const responseGoogleFail = (response) => {
+		addToast(<label>{constants.GOOGLE_LOGIN_FAIL}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
 	}
 
 	const responseFacebook = (response) => {
@@ -156,7 +178,7 @@ const SignIn = props => {
 								clientId={process.env.REACT_APP_GOOGLE_KEY}
 								buttonText="Google"
 								onSuccess={responseGoogle}
-								onFailure={responseGoogle}
+								onFailure={responseGoogleFail}
 								cookiePolicy={'single_host_origin'}
 								render={renderProps => (									
 									<Grid container onClick={renderProps.onClick} disabled={renderProps.disabled} className={classes.btnGoogleLogin}>
