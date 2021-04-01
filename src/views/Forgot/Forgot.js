@@ -23,10 +23,8 @@ const Forgot = props => {
   const [input, setInput] = useState({});
   const [error, setError] = useState({});
   const [progressStatus, setProgressStatus] = useState(false);
-  useEffect(() => {
-
-  }, []);
-
+	const [tryLogin, setTryLogin] = useState(false);
+  
   const handleChange = event => {
     let arr = JSON.parse(JSON.stringify(input));
     arr[event.target.name] = event.target.value;
@@ -34,6 +32,7 @@ const Forgot = props => {
   };
 
   const handleForgot = event => {		
+		setTryLogin(true);
     if ((error && (error.email && error.email.length > 0)) || !input.email) {
       addToast(<label>{t('forgot.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
@@ -63,8 +62,8 @@ const Forgot = props => {
   useEffect(() => {
     let arr = JSON.parse(JSON.stringify(error));
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    if (input["email"] && !pattern.test(input["email"])) {
-      arr["email"] = constants.ENTER_VALID_EMAIL;
+    if (!input["email"] || (input["email"] && !pattern.test(input["email"]))) {
+      arr["email"] = t('sign_in.enter_invalid_email');
     } else {
       arr["email"] = "";
     }
@@ -83,7 +82,7 @@ const Forgot = props => {
             <div>
               <div className={classes.input_box_label}><label htmlFor="emailInput">{t('forgot.email')}</label></div>
               <input className={classes.input_box} type="email" value={input.email} name="email" id="emailInput" onChange={handleChange} onKeyPress={handleKeyPress} />
-              <div className={classes.error_log}>{error["email"] && error["email"].length > 0 && error.email}</div>
+              <div className={classes.error_log}>{tryLogin && error["email"] && error["email"].length > 0 && error.email}</div>
             </div>
             <div className={classes.buttonContainer}>    
               <Button variant="contained" color="secondary" className={classes.btnForgot} onClick={handleForgot}>

@@ -27,6 +27,7 @@ const ResetPassword = props => {
   const [input, setInput] = useState({});
   const [error, setError] = useState({});
   const [progressStatus, setProgressStatus] = useState(false);
+	const [tryLogin, setTryLogin] = useState(false);
 
   const handleChange = event => {
     let arr = JSON.parse(JSON.stringify(input));
@@ -35,6 +36,7 @@ const ResetPassword = props => {
   };
 
   const handleResetPassword = event => {		
+		setTryLogin(true);
     if ((error && ((error.password && error.password.length > 0) || (error.reset_password && error.reset_password.length > 0))) || !input.password || !input.reset_password) {
       addToast(<label>{t('reset_password.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
@@ -46,7 +48,8 @@ const ResetPassword = props => {
           if (response.code === 200) {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-            setTimeout(function () { history.push('/login') }, 1000);            
+						storage.removeStorage('vCode');
+            setTimeout(function () { history.push('/login') }, 1000);         
           } else {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
@@ -63,14 +66,14 @@ const ResetPassword = props => {
   }, []);
   useEffect(() => {
     let arr = JSON.parse(JSON.stringify(error));
-    if (input["password"] && input["password"].length <= 5) {
+    if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
       arr["password"] = t('reset_password.check_valid_password');
     } else {
       arr["password"] = "";
     }
     let reset_password = input["reset_password"];
     let password = input["password"];
-    if (input["reset_password"] && reset_password !== password) {
+    if (!reset_password || (input["reset_password"] && reset_password !== password)) {
       arr["reset_password"] = t('reset_password.enter_same_password');
     } else {
       arr["reset_password"] = "";
@@ -93,10 +96,10 @@ const ResetPassword = props => {
 							<div>
 								<div className={classes.input_box_label} htmlFor="passwordInput">{t('reset_password.password')}</div>
 								<input className={classes.input_box} type="password" value={input.password} name="password" placeholder="Hasło" onChange={handleChange} onKeyPress={handleKeyPress} />
-								<div className={classes.error_log}>{error["password"] && error["password"].length > 0 && error.password}</div>
+								<div className={classes.error_log}>{tryLogin && error["password"] && error["password"].length > 0 && error.password}</div>
 								<div className={classes.input_box_label} htmlFor="resetpasswordInput">{t('reset_password.confirm_password')}</div>
 								<input className={classes.input_box} type="password" value={input.reset_password} name="reset_password" onChange={handleChange} onKeyPress={handleKeyPress} />
-								<div className={classes.error_log}>{error["reset_password"] && error["reset_password"].length > 0 && error.reset_password}</div>
+								<div className={classes.error_log}>{tryLogin && error["reset_password"] && error["reset_password"].length > 0 && error.reset_password}</div>
 							</div>
 						</div>
 						<div className={classes.buttonContainer}>

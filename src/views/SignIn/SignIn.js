@@ -63,7 +63,6 @@ const SignIn = props => {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
             setTimeout(function () { history.push('/cockpit'); }, 1000);
-
           } else {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
@@ -136,8 +135,7 @@ const SignIn = props => {
 		console.log(response);
 	}
 
-  return (
-		console.log("++++++++++++++", error.password),
+  return (		
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>

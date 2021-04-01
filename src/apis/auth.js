@@ -13,7 +13,7 @@ class Auth {
 			})
 			.then(response => {
 				if (response.data.code === 200) {
-					storage.setStorage('token', response.data.data.token);		
+					storage.setStorage('token', response.data.data.token);
 				}
 				return response.data;
 			}).catch(error => {
