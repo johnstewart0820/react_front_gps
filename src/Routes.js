@@ -24,7 +24,63 @@ const Routes = (props) => {
 				exact
 				layout={MainLayout}
 				title='dashboard'
-				paht='/dashboard'
+				path='/dashboard'
+			/>
+			<RouteWithLayout 
+				component={RegulationView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/new_project'
+			/>
+			<RouteWithLayout 
+				component={RegulationView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/project_history'
+			/>
+			<RouteWithLayout 
+				component={SignInView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/your_account'
+			/>
+			<RouteWithLayout 
+				component={RegulationView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/edit_profile'
+			/>
+			<RouteWithLayout 
+				component={RegulationView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/payment_invoice'
+			/>
+			<RouteWithLayout 
+				component={SignInView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/help'
+			/>
+			<RouteWithLayout 
+				component={RegulationView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/guid'
+			/>
+			<RouteWithLayout 
+				component={RegulationView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				path='/chat_consultant'
 			/>
       <RouteWithLayout
         component={SignInView}

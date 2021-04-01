@@ -74,7 +74,7 @@ class Auth {
 
 	validate = (token) => {
 		return axios
-			.post(`${process.env.REACT_APP_BACKEND_URL}/auth/verify`, { headers: authHeader(token) })
+			.post(`${process.env.REACT_APP_BACKEND_URL}/auth/verify`, {}, { headers: authHeader(token) })
 			.then(response => {
 				return response.data;
 			}).catch(error => {
