@@ -45,7 +45,7 @@ const SignIn = props => {
     setCheckStatus(!checkStatus);
   };
   const handleSignIn = event => {
-    setTryLogin(true);		
+    setTryLogin(true);
     if ((error && ((error.email && error.email.length > 0) || (error.password && error.password.length > 0))) || !input.email || !input.password) {
       addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
@@ -86,12 +86,12 @@ const SignIn = props => {
   useEffect(() => {
     let arr = JSON.parse(JSON.stringify(error));
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    if (input["email"] && !pattern.test(input["email"])) {
+    if (!input["email"] || (input["email"] && !pattern.test(input["email"]))) {
       arr["email"] = constants.ENTER_VALID_EMAIL;
     } else {
       arr["email"] = "";
     }
-    if (input["password"] && input["password"].length <= 5) {
+    if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
       arr["password"] = constants.ENTER_PASSWORD;
     } else {
       arr["password"] = "";
@@ -107,7 +107,7 @@ const SignIn = props => {
 
 	const responseGoogle = (response) => {
 		console.log(response);
-		setProgressStatus(true);
+		setProgressStatus(true)
 		const email = response.profileObj.email;
 		const firstName = response.profileObj.givenName;
 		const lastName = response.profileObj.familyName;

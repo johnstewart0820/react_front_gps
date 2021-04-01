@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import img1 from "assets/img/slide1.png";
-import img2 from "assets/img/slide2.png";
 import useStyles from './style';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -68,13 +67,10 @@ const Rightbar = props => {
 					<img src={img1} />
 				</div>
 				<div>
-					<img src="http://placekitten.com/g/400/200" />
+					<img src={img1} />
 				</div>
 				<div>
-					<img src={img2} />
-				</div>
-				<div>
-					<img src="http://placekitten.com/g/400/200" />
+					<img src={img1} />
 				</div>				
 			</Slider>
 			{

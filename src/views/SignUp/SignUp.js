@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { SingleSelect } from './components';
 import useStyles from './style';
-// import auth from '../../apis/auth';
+import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
 import constants from '../../utils/constants';
@@ -27,13 +27,13 @@ const SignUp = props => {
 	const [checkRegulationStatus, setCheckRegulationStatus] = useState(false);
 	const [checkAgreeStatus, setCheckAgreeStatus] = useState(false);
 	const [checkDisagreeStatus, setCheckDisagreeStatus] = useState(false);
-  const [tryLogin, setTryLogin] = useState(false);
+  const [trySignup, setTrySignup] = useState(false);
 	const [selectedCountry, setSelectedCountry] = useState();
 	const [countryList, setCountryList] = useState([
-		{ id: '1', name: 'Andorra'},
-		{ id: '2', name: 'Albania'},
-		{ id: '3', name: 'Belarus'},
-		{ id: '4', name: 'Dominica'}		
+		{ id: '1', name: 'England'},
+		{ id: '2', name: 'Germany'},
+		{ id: '3', name: 'Poland'},
+		{ id: '4', name: 'Ukraine'}		
 	]);
 
   const handleChange = event => {
@@ -42,25 +42,30 @@ const SignUp = props => {
     setInput(arr);
   };
 
+	const checkError = () => {
+		return (error && ((error.email && error.email.length > 0) || (error.password && error.password.length > 0))) || !input.email || !input.password || !checkRegulationStatus || !input.firstName || !input.lastName || !selectedCountry;
+	}
+
   const handleSignUp = event => {
-    setTryLogin(true);
-    if ((error && ((error.email && error.email.length > 0) || (error.password && error.password.length > 0))) || !input.email || !input.password) {
+    setTrySignup(true);
+    if (checkError()) {
       addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+			// handleError();
     } else {
       setProgressStatus(true);      
-      // auth
-      //   .login(input.email, input.password)	
-      //   .then(response => {
-      //     if (response.code === 200) {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-      //       setTimeout(function () { history.push('/cockpit'); }, 1000);
+      auth
+        .signup(input.email, input.password, input.firstName, input.lastName, selectedCountry)	
+        .then(response => {
+          if (response.code === 200) {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+            setTimeout(function () { history.push('/login'); }, 1000);
 
-      //     } else {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
-      //     }
-      //   })
+          } else {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+          }
+        })
     }
   };
 
@@ -79,32 +84,42 @@ const SignUp = props => {
 	const handleBack = () => {
 		history.push('/login');
 	}
-
-  useEffect(() => {
-    let arr = JSON.parse(JSON.stringify(input));
-    if (storage.getStorage('email') && storage.getStorage('email').length > 0) {
-      arr['email'] = storage.getStorage('email');
-    }
-		if (storage.getStorage('password') && storage.getStorage('password').length > 0) {
-      arr['password'] = storage.getStorage('password');
-    }
-    setInput(arr);
-  }, []);
-  useEffect(() => {
-    let arr = JSON.parse(JSON.stringify(error));
+	
+  useEffect(() => {		
+    let arr = JSON.parse(JSON.stringify(error));		
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    if (input["email"] && !pattern.test(input["email"])) {
+    if (!input["email"] || (input["email"] && !pattern.test(input["email"]))) {
       arr["email"] = constants.ENTER_VALID_EMAIL;
     } else {
       arr["email"] = "";
     }
-		if (input["password"] && input["password"].length <= 5) {
+		
+		if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
       arr["password"] = constants.ENTER_PASSWORD;
     } else {
       arr["password"] = "";
     }
+
+		if (!input["confirmPassword"] || (input["password"] !== input["confirmPassword"])) {
+      arr["confirmPassword"] = constants.ENTER_SAME_PASSWORD;
+    } else {
+      arr["confirmPassword"] = "";
+    }
+
+		if (!input["firstName"]) {
+      arr["firstName"] = constants.ENTER_FIRSTNAME;
+    } else {
+      arr["firstName"] = "";
+    }
+
+		if (!input["lastName"]) {
+      arr["lastName"] = constants.ENTER_LASTNAME;
+    } else {
+      arr["lastName"] = "";
+    }
+
     setError(arr);
-  }, [input]);
+  }, [input, selectedCountry]);
 
   const handleKeyPress = (event) => {
     if (event.charCode === 13) {
@@ -122,31 +137,31 @@ const SignUp = props => {
         <div className={classes.mainContainer}>
           <div className={classes.loginForm}>				
             <div>
-							<div className={classes.input_box_label}><label for="email">E-mail/Login</label></div>
+							<div className={classes.input_box_label}><label for="email">E-mail</label></div>
               <input className={classes.input_box} type="email" value={input.email} name="email" id="email" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
-              <div className={classes.error_log}>{tryLogin && error["email"] && error["email"].length > 0 && error.email}</div>
+              <div className={classes.error_log}>{trySignup && error["email"] && error["email"].length > 0 && error.email}</div>
 
 							<div className={classes.input_box_label}><label htmlFor="password">Hasło</label></div>
               <input className={classes.input_box} type="password" value={input.password} label="password" name="password" id="password" onChange={handleChange} onKeyPress={handleKeyPress} />
-              <div className={classes.error_log}>{tryLogin && error["password"] && error["password"].length > 0 && error.password}</div>
+              <div className={classes.error_log}>{trySignup && error["password"] && error["password"].length > 0 && error.password}</div>
 
 							<div className={classes.input_box_label}><label htmlFor="confirmPassword">Potwierdzam hasło</label></div>
               <input className={classes.input_box} type="password" value={input.confirmPassword} label="confirmPassword" name="confirmPassword" id="confirmPassword" onChange={handleChange} onKeyPress={handleKeyPress} />
-              <div className={classes.error_log}>{tryLogin && error["confirmPassword"] && error["confirmPassword"].length > 0 && error.confirmPassword}</div>
+              <div className={classes.error_log}>{trySignup && error["confirmPassword"] && error["confirmPassword"].length > 0 && error.confirmPassword}</div>
               
 							<div className={classes.input_box_label}><label for="firstName">Imię</label></div>
               <input className={classes.input_box} type="text" value={input.firstName} name="firstName" id="firstName" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
-              <div className={classes.error_log}>{tryLogin && error["firstName"] && error["firstName"].length > 0 && error.firstName}</div>
+              <div className={classes.error_log}>{trySignup && error["firstName"] && error["firstName"].length > 0 && error.firstName}</div>
 
 							<div className={classes.input_box_label}><label for="lastName">Imię</label></div>
               <input className={classes.input_box} type="text" value={input.lastName} name="lastName" id="lastName" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
-              <div className={classes.error_log}>{tryLogin && error["lastName"] && error["lastName"].length > 0 && error.lastName}</div>
+              <div className={classes.error_log}>{trySignup && error["lastName"] && error["lastName"].length > 0 && error.lastName}</div>
 
 
 							<div className={classes.input_box_label}><label for="region">Kraj/Region</label></div>
 							<SingleSelect value={selectedCountry} handleChange={setSelectedCountry} list={countryList} />
               {/* <input className={classes.input_box} type="text" value={input.region} name="region" id="region" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' /> */}
-              <div className={classes.error_log}>{tryLogin && error["region"] && error["region"].length > 0 && error.region}</div>
+              <div className={classes.error_log}>{trySignup && error["region"] && error["region"].length > 0 && error.region}</div>
             </div>
           </div>
         </div>

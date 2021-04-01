@@ -10,7 +10,7 @@ import {
 	Typography
 } from '@material-ui/core';
 import useStyles from './style';
-// import auth from '../../apis/auth';
+import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
 import constants from '../../utils/constants';
@@ -31,42 +31,36 @@ const Verification = props => {
     setInput(arr);
   };
 
-  const handleVerification = event => {
-		history.push('reset_password');
+  const handleVerification = event => {		
     setTryLogin(true);
     if ((error && (error.vCode && error.vCode.length > 0)) || !input.vCode) {
-      addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+			addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
-      setProgressStatus(true);      
-      // auth
-      //   .login(input.email, input.password)	
-      //   .then(response => {
-      //     if (response.code === 200) {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-      //       setTimeout(function () { history.push('/cockpit'); }, 1000);
+			setProgressStatus(true);      
+			const email = storage.getStorage('email');
+      auth
+        .verifyConfirmation(email, input.vCode)
+        .then(response => {
+          if (response.code === 200) {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+						storage.setStorage('vCode', input.vCode);
+            setTimeout(function () { history.push('/reset_password'); }, 1000);
 
-      //     } else {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
-      //     }
-      //   })
+          } else {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+          }
+        })
     }
   };
-  useEffect(() => {
-    let arr = JSON.parse(JSON.stringify(input));
-    if (storage.getStorage('email') && storage.getStorage('email').length > 0) {
-      arr['email'] = storage.getStorage('email');
-    }
-    setInput(arr);
-  }, []);
-  useEffect(() => {
-    let arr = JSON.parse(JSON.stringify(error));
-    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    if (input["email"] && !pattern.test(input["email"])) {
-      arr["email"] = constants.ENTER_VALID_EMAIL;
+  
+  useEffect(() => {    
+		let arr = JSON.parse(JSON.stringify(input));
+    if (!input["vCode"] || input['vCode'].length !== 6) {
+      arr["vCode"] = constants.ENTER_VALID_EMAIL;
     } else {
-      arr["email"] = "";
+      arr["vCode"] = "";
     }
     setError(arr);
   }, [input]);

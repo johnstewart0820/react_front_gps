@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles((theme) => ({
 	container: {
 		// padding: '40px',
-		background: 'green',
+		background: 'white',
 		'& .slick-slider .slick-track': {
 			height: 'calc(100vh - 80px)',
 		},

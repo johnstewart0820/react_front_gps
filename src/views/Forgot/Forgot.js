@@ -8,9 +8,10 @@ import {
 	Typography
 } from '@material-ui/core';
 import useStyles from './style';
-// import auth from '../../apis/auth';
+import auth from '../../apis/auth';
 import { useToasts } from 'react-toast-notifications'
 import constants from '../../utils/constants';
+import storage from 'utils/storage';
 
 const Forgot = props => {
   const { history } = props;
@@ -31,24 +32,24 @@ const Forgot = props => {
     setInput(arr);
   };
 
-  const handleForgot = event => {
-		history.push('verification');
+  const handleForgot = event => {		
     if ((error && (error.email && error.email.length > 0)) || !input.email) {
       addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
       setProgressStatus(true);
-      // auth
-      //   .forgot(input.email)
-      //   .then(response => {
-      //     if (response.code === 200) {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-      //       setTimeout(function () { history.push('/login') }, 1000);
-      //     } else {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
-      //     }
-      //   })
+			storage.setStorage('email', input.email);
+      auth
+        .forgot(input.email)
+        .then(response => {
+          if (response.code === 200) {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+            setTimeout(function () { history.push('/verification')}, 1000);
+          } else {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+          }
+        })
     }
   };
 

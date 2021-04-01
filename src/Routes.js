@@ -8,6 +8,7 @@ import {
   SignIn as SignInView,
 	SignUp as SignUpView,	
 	Verification as VerificationView,
+	ValidateUser as ValidateUserView,
   Forgot as ForgotView,
   ResetPassword as ResetPasswordView,
 	Regulation as RegulationView,
@@ -31,6 +32,12 @@ const Routes = (props) => {
         layout={MinimalLayout}
 				title='Weryfikacja'
         path="/verification"
+      />
+			<RouteWithLayout
+        component={ValidateUserView}
+        exact
+        layout={MinimalLayout}
+        path="/validate"
       />
 			<RouteWithLayout
         component={SignUpView}

@@ -8,7 +8,8 @@ import {
 	Typography
 } from '@material-ui/core';
 import useStyles from './style';
-// import auth from '../../apis/auth';
+import auth from '../../apis/auth';
+import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
 import { useLocation } from "react-router-dom";
 import constants from '../../utils/constants';
@@ -32,25 +33,24 @@ const ResetPassword = props => {
     setInput(arr);
   };
 
-  const handleResetPassword = event => {
-		history.push('/login');
+  const handleResetPassword = event => {		
     if ((error && ((error.password && error.password.length > 0) || (error.reset_password && error.reset_password.length > 0))) || !input.password || !input.reset_password) {
       addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
       setProgressStatus(true);
-      // auth
-      //   .reset_password(input.password, token)
-      //   .then(response => {
-      //     if (response.code === 200) {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-      //       setTimeout(function () { history.push('/login') }, 1000);
-      //       // history.push('/login');
-      //     } else {
-      //       setProgressStatus(false);
-      //       addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
-      //     }
-      //   })
+			const vCode = storage.getStorage('vCode');
+      auth
+        .reset_password(input.password, vCode)
+        .then(response => {
+          if (response.code === 200) {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+            setTimeout(function () { history.push('/login') }, 1000);            
+          } else {
+            setProgressStatus(false);
+            addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+          }
+        })
     }
   };
   const handleKeyPress = (event) => {
