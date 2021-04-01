@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
-import { Minimal as MinimalLayout } from './layouts';
+import { Minimal as MinimalLayout, Main as MainLayout } from './layouts';
 
 import {
   SignIn as SignInView,
@@ -19,6 +19,13 @@ const Routes = (props) => {
   return (
     <Switch>
       <Redirect exact from="/" to="/login"/>
+			<RouteWithLayout 
+				component={SignInView}
+				exact
+				layout={MainLayout}
+				title='dashboard'
+				paht='/dashboard'
+			/>
       <RouteWithLayout
         component={SignInView}
         exact
