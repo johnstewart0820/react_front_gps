@@ -18,16 +18,13 @@ import constants from '../../utils/constants';
 import AppleIcon from '@material-ui/icons/Apple';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { GoogleLogin } from 'react-google-login';
-// import FacebookLogin from 'react-facebook-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import AppleLogin from 'react-apple-login';
 import { GoogleIcon } from 'assets/svg/icons';
 import { withTranslation } from 'react-i18next';
-import { isJSDocOptionalType } from 'typescript';
 
 const SignIn = props => {
-  const { history, t } = props;
-	// const { t } = useTranslation();
+  const { history, t } = props;	
   const classes = useStyles();
   const { addToast } = useToasts()
   const [checkStatus, setCheckStatus] = useState(false);
@@ -93,7 +90,7 @@ const SignIn = props => {
       arr["email"] = "";
     }
     if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
-      arr["password"] = t('sign_in.enter_password');
+      arr["password"] = t('sign_in.check_valid_password');
     } else {
       arr["password"] = "";
     }
@@ -140,6 +137,7 @@ const SignIn = props => {
 	}
 
   return (
+		console.log("++++++++++++++", error.password),
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>

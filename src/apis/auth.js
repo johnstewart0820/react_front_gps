@@ -30,10 +30,7 @@ class Auth {
 				last_name: LastName,
 				country: selectedCountry,
 			})
-			.then(response => {
-				if (response.data.code === 200) {
-					storage.setStorage('token', response.data.data.token);					
-				}
+			.then(response => {				
 				return response.data;
 			}).catch(error => {
 				return error;

@@ -36,7 +36,7 @@ const ResetPassword = props => {
 
   const handleResetPassword = event => {		
     if ((error && ((error.password && error.password.length > 0) || (error.reset_password && error.reset_password.length > 0))) || !input.password || !input.reset_password) {
-      addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+      addToast(<label>{t('reset_password.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
       setProgressStatus(true);
 			const vCode = storage.getStorage('vCode');
@@ -64,7 +64,7 @@ const ResetPassword = props => {
   useEffect(() => {
     let arr = JSON.parse(JSON.stringify(error));
     if (input["password"] && input["password"].length <= 5) {
-      arr["password"] = t('reset_password.enter_password');
+      arr["password"] = t('reset_password.check_valid_password');
     } else {
       arr["password"] = "";
     }

@@ -26,8 +26,7 @@ const SignUp = props => {
   const [error, setError] = useState({});
   const [progressStatus, setProgressStatus] = useState(false);
 	const [checkRegulationStatus, setCheckRegulationStatus] = useState(false);
-	const [checkAgreeStatus, setCheckAgreeStatus] = useState(false);
-	const [checkDisagreeStatus, setCheckDisagreeStatus] = useState(false);
+	const [checkAgreeStatus, setCheckAgreeStatus] = useState(-1);	
   const [trySignup, setTrySignup] = useState(false);
 	const [selectedCountry, setSelectedCountry] = useState();
 	const [countryList, setCountryList] = useState([
@@ -50,18 +49,17 @@ const SignUp = props => {
   const handleSignUp = event => {
     setTrySignup(true);
     if (checkError()) {
-      addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+      addToast(<label>{t('register.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
 			// handleError();
     } else {
       setProgressStatus(true);      
       auth
-        .signup(input.email, input.password, input.firstName, input.lastName, selectedCountry)	
+        .signup(input.email, input.password, input.firstName, input.lastName, selectedCountry)
         .then(response => {
           if (response.code === 200) {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
             setTimeout(function () { history.push('/login'); }, 1000);
-
           } else {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
@@ -74,12 +72,11 @@ const SignUp = props => {
     setCheckRegulationStatus(!checkRegulationStatus);
   };
 
-	const handleAgreePreference = event => {
-    setCheckAgreeStatus(!checkAgreeStatus);
-  };
-
-	const handleDisagreePreference = event => {
-    setCheckDisagreeStatus(!checkDisagreeStatus);
+	const handleAgreePreference = (value) => {
+		if (value === checkAgreeStatus)
+			setCheckAgreeStatus(-1);
+		else
+			setCheckAgreeStatus(value);
   };
 
 	const handleBack = () => {
@@ -96,7 +93,7 @@ const SignUp = props => {
     }
 		
 		if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
-      arr["password"] = t('register.enter_password');
+      arr["password"] = t('register.check_valid_password');
     } else {
       arr["password"] = "";
     }
@@ -159,7 +156,7 @@ const SignUp = props => {
               <div className={classes.error_log}>{trySignup && error["lastName"] && error["lastName"].length > 0 && error.lastName}</div>
 
 
-							<div className={classes.input_box_label}><label for="region">{t('register.regiion')}</label></div>
+							<div className={classes.input_box_label}><label for="region">{t('register.region')}</label></div>
 							<SingleSelect value={selectedCountry} handleChange={setSelectedCountry} list={countryList} />
               {/* <input className={classes.input_box} type="text" value={input.region} name="region" id="region" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' /> */}
               <div className={classes.error_log}>{trySignup && error["region"] && error["region"].length > 0 && error.region}</div>
@@ -178,8 +175,8 @@ const SignUp = props => {
 							className={classes.acceptRegulation}
 							control={
 								<Checkbox
-									checked={checkAgreeStatus}
-									onChange={handleAgreePreference}
+									checked={checkAgreeStatus === 0}
+									onChange={() => handleAgreePreference(0)}
 								/>
 							}
 							label={t('register.yes')}
@@ -188,8 +185,8 @@ const SignUp = props => {
 							className={classes.acceptRegulation}
 							control={
 								<Checkbox
-									checked={checkDisagreeStatus}
-									onChange={handleDisagreePreference}
+									checked={checkAgreeStatus === 1}
+									onChange={() => handleAgreePreference(1)}
 								/>
 							}
 							label={t('register.no')}
@@ -199,18 +196,21 @@ const SignUp = props => {
 				<Typography variant={"h2"} className={classes.footer} >
 					{t('sign_in.footer_one')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_two')}</a>{t('sign_in.footer_three')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_four')}</a> i <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_five')}</a> {t('sign_in.footer_six')} <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
 				</Typography>
-				<div className={classes.regulationContainer}>
-					<FormControlLabel
-						className={classes.acceptRegulation}
-						control={
-							<Checkbox
-								checked={checkRegulationStatus}
-								onChange={handleAcceptRegulation}
-							/>
-						}
-						label={t('register.accept')}
-					/>
-					<Link to="/regulation" component={RouterLink} className={classes.btnRegulation}>{t('register.regulation')}</Link>
+				<div>
+					<div className={classes.regulationContainer}>
+						<FormControlLabel
+							className={classes.acceptRegulation}
+							control={
+								<Checkbox
+									checked={checkRegulationStatus}
+									onChange={handleAcceptRegulation}
+								/>
+							}
+							label={t('register.accept')}
+						/>
+						<Link to="/regulation" component={RouterLink} className={classes.btnRegulation}>{t('register.regulation')}</Link>
+					</div>
+					<div className={classes.error_log}>{trySignup && !checkRegulationStatus && t('register.check_regulation') }</div>
 				</div>
 				<div className={classes.buttonContainer}>
 					<Button variant="contained" color="secondary" className={classes.btnBack} onClick={handleBack}>

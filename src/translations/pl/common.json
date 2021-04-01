@@ -7,8 +7,7 @@
     "forgot": "Zapomniałem hasła",
     "remember": "Zapamiętaj mnie",
     "enter_invalid_email": "Proszę wprowadzić poprawny adres e-mail.",
-    "check_all_fields": "Proszę uzupełnić wszystkie pola.",
-    "enter_password:" : "Hasło musi mmieć co namniej 6 znaków.",
+    "check_all_fields": "Proszę uzupełnić wszystkie pola.",    
     "enter_same_password": "Hasła muszą być takie same.",
     "check_policy": "Proszę zaakceptować regulamin.",
     "google_login_fail": "Google login failure",
@@ -21,9 +20,7 @@
     "footer_four": "plików cookie",
     "footer_five": "Polityka prywatności",
     "footer_six": "lub skontaktuj się z nami pod adresem",
-    "accept": "Zaakceptuj",
-    "yes": "TAK",
-    "no": "NIE"
+    "check_valid_password": "Hasło musi mmieć co namniej 6 znaków."
   },
   "register": {
     "register": "Zarejestruj się",
@@ -33,7 +30,7 @@
     "confirm_password": "Potwierdzam hasło",
     "first_name": "Imię",
     "last_name": "Nazwisko",
-    "regiion": "Kraj/Region",
+    "region": "Kraj/Region",
     "communication": "Preferencje komunikacji marketingowej",
     "description": "Od czasu do czasu możemy kontaktować się z Tobą w sprawie naszych produktów i usług, a także innych treści, które mogą Cię zainteresować",    
     "back": "Wstecz",
@@ -41,13 +38,15 @@
     "regulation": "Regulamin",
     "enter_invalid_email": "Proszę wprowadzić poprawny adres e-mail.",
     "check_all_fields": "Proszę uzupełnić wszystkie pola.",
-    "enter_password:" : "Hasło musi mmieć co namniej 6 znaków.",
     "enter_same_password": "Hasła muszą być takie same.",
     "enter_first_name": "Wpisz imię.",
     "enter_last_name": "Wpisz nazwisko.",
     "accept": "Zaakceptuj",
     "yes": "TAK",
-    "no": "NIE"
+    "no": "NIE",
+    "check_valid_password": "Hasło musi mmieć co namniej 6 znaków.",
+    "choose_option": "Wybierz opcję",
+    "check_regulation": "Sprawdź regulamin"
   },
   "forgot": {
     "recover_password": "Odzyskaj hasło",
@@ -69,8 +68,8 @@
 		"password": "Hasło",
 		"confirm_password": "Powtórz hasło",
 		"set_password": "Ustaw hasło",
-		"enter_password:" : "Hasło musi mmieć co namniej 6 znaków.",
-    "enter_same_password": "Hasła muszą być takie same."
+    "enter_same_password": "Hasła muszą być takie same.",
+		"check_valid_password" : "Hasło musi mmieć co namniej 6 znaków."
 	},
 	"verification" : {
 		"enter_valid_code": "wprowadź prawidłowy kod!",

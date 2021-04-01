@@ -8,7 +8,6 @@
     "remember": "Recuérdame",
     "enter_invalid_email": "Introduzca una dirección de correo electrónico válida.",
     "check_all_fields": "Complete todos los campos.",
-    "enter_password:": "La contraseña debe tener al menos 6 caracteres.",
     "enter_same_password": "Las contraseñas deben ser iguales.",
     "check_policy": "Acepte las regulaciones.",
     "google_login_fail": "Error de inicio de sesión de Google",
@@ -21,9 +20,7 @@
     "footer_four": "cookies",
     "footer_five": "Política de privacidad",
     "footer_six": "o contáctenos en",
-    "accept": "Aceptar",
-    "yes": "Sí",
-    "no": "no"
+    "check_valid_password": "La contraseña debe tener al menos 6 caracteres."
   },
   "register": {
     "register": "Registrarse",
@@ -41,13 +38,15 @@
     "regulation": "Reglamentos",
     "enter_invalid_email": "Introduzca una dirección de correo electrónico válida.",
     "check_all_fields": "Complete todos los campos.",
-    "enter_password:": "La contraseña debe tener al menos 6 caracteres.",
     "enter_same_password": "Las contraseñas deben ser iguales.",
     "enter_first_name": "Por favor ingrese su nombre.",
     "enter_last_name": "Por favor ingrese su apellido.",
     "accept": "Aceptar",
     "yes": "Sí",
-    "no": "no"
+    "no": "no",
+    "check_valid_password": "La contraseña debe tener al menos 6 caracteres.",
+    "choose_option": "Escoge una opción",
+    "check_regulation": "Por favor, consulte el reglamento."
   },
   "forgot": {
     "recover_password": "Recuperar contraseña",
@@ -69,8 +68,8 @@
     "password": "Contraseña",
     "confirm_password": "Repetir contraseña",
     "set_password": "Establecer contraseña",
-    "enter_password:": "La contraseña debe tener al menos 6 caracteres.",
-    "enter_same_password": "Las contraseñas deben coincidir"
+    "enter_same_password": "Las contraseñas deben coincidir",
+    "check_valid_password": "La contraseña debe tener al menos 6 caracteres."
   },
   "verification": {
     "enter_valid_code": "¡introduce un código válido!",

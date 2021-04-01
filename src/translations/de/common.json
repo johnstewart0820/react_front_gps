@@ -8,7 +8,6 @@
     "remember": "erinnere dich an mich",
     "enter_invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     "check_all_fields": "Bitte alle Felder ausfüllen.",
-    "enter_password:": "Das Passwort muss mindestens 6 Zeichen lang sein.",
     "enter_same_password": "Passwörter müssen identisch sein.",
     "check_policy": "Bitte akzeptieren Sie die Vorschriften.",
     "google_login_fail": "Google-Anmeldefehler",
@@ -21,9 +20,7 @@
     "footer_four": "Cookies",
     "footer_five": "Datenschutzerklärung",
     "footer_six": "oder kontaktieren Sie uns unter",
-    "accept": "akzeptieren",
-    "yes": "ja",
-    "no": "nein"
+    "check_valid_password": "Das Passwort muss mindestens 6 Zeichen lang sein."
   },
   "register": {
     "register": "registrieren",
@@ -33,7 +30,7 @@
     "confirm_password": "Ich bestätige mein Passwort",
     "first_name": "Vorname",
     "last_name": "Nachname",    
-    "regiion": "Land / Region",
+    "region": "Land / Region",
     "communication": "Marketingkommunikationspräferenzen",
     "description": "Wir können Sie von Zeit zu Zeit bezüglich unserer Produkte und Dienstleistungen sowie anderer Inhalte kontaktieren, die für Sie von Interesse sein könnten",
     "back": "zurück",
@@ -41,13 +38,15 @@
     "regulation": "Bestimmungen",
     "enter_invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     "check_all_fields": "Bitte alle Felder ausfüllen.",
-    "enter_password:": "Das Passwort muss mindestens 6 Zeichen lang sein.",
     "enter_same_password": "Passwörter müssen identisch sein.",
     "enter_first_name": "Bitte geben Sie Ihren Vornamen ein.",
     "enter_last_name": "Bitte geben Sie Ihren Nachnamen ein.",
     "accept": "akzeptieren",
     "yes": "ja",
-    "no": "nein"
+    "no": "nein",
+    "check_valid_password": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    "choose_option": "Wähle eine Option",
+    "check_regulation": "Bitte überprüfen Sie die Vorschriften"
   },
   "forgot": {
     "recover_password": "Kennwort wiederherstellen",
@@ -69,8 +68,8 @@
     "Passwort": "Passwort",
     "confirm_password": "Passwort wiederholen",
     "set_password": "Set password",
-    "enter_password:": "Das Passwort muss mindestens 6 Zeichen lang sein.",
-    "enter_same_password": "Passwörter müssen übereinstimmen."
+    "enter_same_password": "Passwörter müssen übereinstimmen.",
+    "check_valid_password": "Das Passwort muss mindestens 6 Zeichen lang sein."
   },
   "verification": {
     "enter_valid_code": "Geben Sie einen gültigen Code ein!",

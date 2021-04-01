@@ -8,7 +8,6 @@
     "remember": "Remember me",
     "enter_invalid_email": "Please enter a valid e-mail address.",
     "check_all_fields": "Please complete all fields.",
-    "enter_password:": "Password must be at least 6 characters long.",
     "enter_same_password": "Passwords must be the same.",
     "check_policy": "Please accept the regulations.",
     "google_login_fail": "Google login failure",
@@ -21,9 +20,7 @@
     "footer_four": "cookies",
     "footer_five": "Privacy Policy",
     "footer_six": "or contact us at",
-    "accept": "Accept",
-    "yes": "YES",
-    "no": "NO"
+    "check_valid_password": "Password must be at least 6 characters long."
   },
   "register": {
     "register": "Register",
@@ -41,13 +38,15 @@
     "regulation": "Regulations",
     "enter_invalid_email": "Please enter a valid e-mail address.",
     "check_all_fields": "Please complete all fields.",
-    "enter_password:": "Password must be at least 6 characters long.",
     "enter_same_password": "Passwords must be the same.",
     "enter_first_name": "Please enter your first name.",
     "enter_last_name": "Please enter your last name.",
     "accept": "Accept",
     "yes": "YES",
-    "no": "NO"
+    "no": "NO",
+    "check_valid_password": "Password must be at least 6 characters long.",
+    "choose_option": "Choose an option",
+    "check_regulation": "Please check regulation"
   },
   "forgot": {
     "recover_password": "Recover password",
@@ -69,8 +68,8 @@
     "password": "Password",
     "confirm_password": "Repeat password",
     "set_password": "Set password",
-    "enter_password:": "Password must be at least 6 characters long.",
-    "enter_same_password": "Passwords must match."
+    "enter_same_password": "Passwords must match.",
+    "check_valid_password": "Password must be at least 6 characters long."
   },
   "verification": {
     "enter_valid_code": "enter a valid code!",

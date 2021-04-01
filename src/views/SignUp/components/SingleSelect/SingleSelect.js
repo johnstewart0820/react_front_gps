@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import useStyles from './style';
 
 const SingleSelect = (props) => {
   const classes = useStyles();
-  const { value, handleChange, list, error, disabled} = props;
+  const { value, handleChange, list, error, disabled, t} = props;
   useEffect(() => {
   }, []);
 
@@ -21,7 +22,7 @@ const SingleSelect = (props) => {
         }}
         className={classes.input_box}
       >
-        <option aria-label="None" value={0}>Wybierz opcję</option>
+        <option aria-label="None" value={0}>{t('register.choose_option')}</option>
         {
           list.map((item, index) => 
             <option key={index} value={item.id}>{item.name}</option>
@@ -32,4 +33,4 @@ const SingleSelect = (props) => {
   );
 };
 
-export default withRouter(SingleSelect);
+export default withTranslation('common')(withRouter(SingleSelect));
