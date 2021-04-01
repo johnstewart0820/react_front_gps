@@ -22,11 +22,12 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import AppleLogin from 'react-apple-login';
 import { GoogleIcon } from 'assets/svg/icons';
+import { withTranslation } from 'react-i18next';
 import { isJSDocOptionalType } from 'typescript';
 
 const SignIn = props => {
-  const { history } = props;
-
+  const { history, t } = props;
+	// const { t } = useTranslation();
   const classes = useStyles();
   const { addToast } = useToasts()
   const [checkStatus, setCheckStatus] = useState(false);
@@ -47,7 +48,7 @@ const SignIn = props => {
   const handleSignIn = event => {
     setTryLogin(true);
     if ((error && ((error.email && error.email.length > 0) || (error.password && error.password.length > 0))) || !input.email || !input.password) {
-      addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+      addToast(<label>{t('sign_in.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
       setProgressStatus(true);
       if (checkStatus) {
@@ -87,12 +88,12 @@ const SignIn = props => {
     let arr = JSON.parse(JSON.stringify(error));
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
     if (!input["email"] || (input["email"] && !pattern.test(input["email"]))) {
-      arr["email"] = constants.ENTER_VALID_EMAIL;
+      arr["email"] = t('sign_in.enter_invalid_email');
     } else {
       arr["email"] = "";
     }
     if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
-      arr["password"] = constants.ENTER_PASSWORD;
+      arr["password"] = t('sign_in.enter_password');
     } else {
       arr["password"] = "";
     }
@@ -127,7 +128,7 @@ const SignIn = props => {
 	}
 
 	const responseGoogleFail = (response) => {
-		addToast(<label>{constants.GOOGLE_LOGIN_FAIL}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+		addToast(<label>{t('sign_in.google_login_fail')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
 	}
 
 	const responseFacebook = (response) => {
@@ -142,19 +143,19 @@ const SignIn = props => {
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>
-					<Typography variant={"h2"} className={classes.welcome} color="primary">Witamy w aplikacji!</Typography>
-					<Typography variant={"h2"} className={classes.createLogin} color="primary">Zaloguj się i twórz własne projekty</Typography>
+					<Typography variant={"h2"} className={classes.welcome} color="primary">{t('sign_in.welcome')}</Typography>
+					<Typography variant={"h2"} className={classes.createLogin} color="primary">{t('sign_in.create_project')}</Typography>
 				</div>
         <div className={classes.mainContainer}>
           <div className={classes.loginForm}>						
             <div>
-              <div className={classes.input_box_label}><label for="email">E-mail/Login</label></div>
+              <div className={classes.input_box_label}><label for="email">{t('sign_in.email_login')}</label></div>
               <input className={classes.input_box} type="email" value={input.email} name="email" id="email" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
               <div className={classes.error_log}>{tryLogin && error["email"] && error["email"].length > 0 && error.email}</div>
-              <div className={classes.input_box_label}><label htmlFor="password">Hasło</label></div>
+              <div className={classes.input_box_label}><label htmlFor="password">{t('sign_in.password')}</label></div>
               <input className={classes.input_box} type="password" value={input.password} label="password" name="password" id="password" onChange={handleChange} onKeyPress={handleKeyPress} />
               <div className={classes.error_log}>{tryLogin && error["password"] && error["password"].length > 0 && error.password}</div>
-              <Link to="/forgotpassword" component={RouterLink} className={classes.btnForgot}>Zapomniałem hasła</Link>
+              <Link to="/forgotpassword" component={RouterLink} className={classes.btnForgot}>{t('sign_in.forgot')}</Link>
 							<FormControlLabel
                 className={classes.rememberMe}
                 control={
@@ -163,17 +164,17 @@ const SignIn = props => {
                     onChange={handleRememberMe}
                   />
                 }
-                label="Zapamiętaj mnie"
+                label={t('sign_in.remember')}
               />
             </div>
             <div className={classes.buttonContainer}>							
               <Button variant="contained" color="secondary" className={classes.btnLogin} onClick={handleSignIn}>
-								Zaloguj się
+								{t('sign_in.sign_in')}
               </Button>
-              <Link to="/register" component={RouterLink} className={classes.btnRegister}>nie masz konta? zarejestrować!</Link>
+              <Link to="/register" component={RouterLink} className={classes.btnRegister}>{t('sign_in.register')}</Link>
             </div>
 						<div className={classes.socialContainer}>
-							<Typography className={classes.loginWithSocial} >Zaloguj się za pomocą:</Typography>
+							<Typography className={classes.loginWithSocial} >{t('sign_in.sign_with')}</Typography>
 							<GoogleLogin
 								clientId={process.env.REACT_APP_GOOGLE_KEY}
 								buttonText="Google"
@@ -226,7 +227,7 @@ const SignIn = props => {
           </div>
         </div>
 				<Typography variant={"h2"} className={classes.footer} >
-					Przesyłając ten formularz, zgadzasz się na <a href="https://" target="_blank" className={classes.linkColor}>Warunki korzystania z usługi</a>. Aby uzyskać więcej informacji na temat polityki prywatności w zakresie przetwarzania danych osobowych, kliknij tutaj: Polityka <a href="https://" target="_blank" className={classes.linkColor}>plików cookie</a> i <a href="https://" target="_blank" className={classes.linkColor}>Polityka prywatności</a> lub skontaktuj się z nami pod adresem <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
+					{t('sign_in.footer_one')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_two')}</a>{t('sign_in.footer_three')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_four')}</a> i <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_five')}</a> {t('sign_in.footer_six')} <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
 				</Typography>					
       </div>
       {
@@ -244,7 +245,8 @@ const SignIn = props => {
 };
 
 SignIn.propTypes = {
-  history: PropTypes.object
+  history: PropTypes.object,
+	t: PropTypes.func.isRequired,
 };
 
-export default withRouter(SignIn);
+export default withTranslation('common')(withRouter(SignIn));

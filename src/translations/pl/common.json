@@ -1,0 +1,88 @@
+{
+  "sign_in": {
+    "welcome" : "Witamy w aplikacji!",
+    "create_project": "Zaloguj się i twórz własne projekty",
+    "email_login": "E-mail/Login",
+    "password": "Hasło",
+    "forgot": "Zapomniałem hasła",
+    "remember": "Zapamiętaj mnie",
+    "enter_invalid_email": "Proszę wprowadzić poprawny adres e-mail.",
+    "check_all_fields": "Proszę uzupełnić wszystkie pola.",
+    "enter_password:" : "Hasło musi mmieć co namniej 6 znaków.",
+    "enter_same_password": "Hasła muszą być takie same.",
+    "check_policy": "Proszę zaakceptować regulamin.",
+    "google_login_fail": "Google login failure",
+    "sign_in": "Zaloguj się",
+    "register": "nie masz konta? zarejestrować!",
+    "sign_with": "Zaloguj się za pomocą:",
+    "footer_one": "Przesyłając ten formularz, zgadzasz się na",
+    "footer_two": "Warunki korzystania z usługi",
+    "footer_three": ". Aby uzyskać więcej informacji na temat polityki prywatności w zakresie przetwarzania danych osobowych, kliknij tutaj: Polityka",
+    "footer_four": "plików cookie",
+    "footer_five": "Polityka prywatności",
+    "footer_six": "lub skontaktuj się z nami pod adresem",
+    "accept": "Zaakceptuj",
+    "yes": "TAK",
+    "no": "NIE"
+  },
+  "register": {
+    "register": "Zarejestruj się",
+    "create_project": "Podaj swoje dane i stwórz własny projekty!",
+    "email" : "E-mail",
+    "password": "Hasło",
+    "confirm_password": "Potwierdzam hasło",
+    "first_name": "Imię",
+    "last_name": "Nazwisko",
+    "regiion": "Kraj/Region",
+    "communication": "Preferencje komunikacji marketingowej",
+    "description": "Od czasu do czasu możemy kontaktować się z Tobą w sprawie naszych produktów i usług, a także innych treści, które mogą Cię zainteresować",    
+    "back": "Wstecz",
+    "create_account": "Utwórz konto",
+    "regulation": "Regulamin",
+    "enter_invalid_email": "Proszę wprowadzić poprawny adres e-mail.",
+    "check_all_fields": "Proszę uzupełnić wszystkie pola.",
+    "enter_password:" : "Hasło musi mmieć co namniej 6 znaków.",
+    "enter_same_password": "Hasła muszą być takie same.",
+    "enter_first_name": "Wpisz imię.",
+    "enter_last_name": "Wpisz nazwisko.",
+    "accept": "Zaakceptuj",
+    "yes": "TAK",
+    "no": "NIE"
+  },
+  "forgot": {
+    "recover_password": "Odzyskaj hasło",
+    "check_email": "Podaj swój adres e-mail, aby odzyskać hasło",
+    "email" : "E-mail",
+    "send": "Wyślij",
+    "back": "Powróc do poprzedniej strony",    
+		"check_all_fields": "Proszę uzupełnić wszystkie pola."
+  },
+	"regulation": {
+		"regulation": "regulamin",
+		"regulation_title": "Podaj swoje dane i stwórz własny projekty!",
+		"back": "Wstecz"
+	},
+	"reset_password": {
+		"reset_name": "Odzyskaj hasło",
+		"reset_title": "Wprowadź nowe hasło, aby odzyskać hasło",
+		"new_password": "Ustaw nowe hasło",
+		"password": "Hasło",
+		"confirm_password": "Powtórz hasło",
+		"set_password": "Ustaw hasło",
+		"enter_password:" : "Hasło musi mmieć co namniej 6 znaków.",
+    "enter_same_password": "Hasła muszą być takie same."
+	},
+	"verification" : {
+		"enter_valid_code": "wprowadź prawidłowy kod!",
+		"check_all_fields": "Proszę uzupełnić wszystkie pola.",
+		"register_name": "kod weryfikacyjny",
+		"register_title": "Wprowadź kod weryfikacyjny, aby odzyskać hasło",
+		"verify_code": "Kod weryfikacyjny",
+		"send_verify": "Wyślij kod weryfikacyjny",
+		"go_login": "Zaloguj się"
+	},
+	"top_bar": {
+		"help": "Jak to działa",
+		"contact": "Kontakt"
+	}
+}

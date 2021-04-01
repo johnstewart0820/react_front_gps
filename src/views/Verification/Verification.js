@@ -13,10 +13,11 @@ import useStyles from './style';
 import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
+import { withTranslation } from 'react-i18next';
 import constants from '../../utils/constants';
 
 const Verification = props => {
-  const { history } = props;
+  const { history, t } = props;
 
   const classes = useStyles();
   const { addToast } = useToasts()
@@ -34,7 +35,7 @@ const Verification = props => {
   const handleVerification = event => {		
     setTryLogin(true);
     if ((error && (error.vCode && error.vCode.length > 0)) || !input.vCode) {
-			addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+			addToast(<label>{t('verification.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
 			setProgressStatus(true);      
 			const email = storage.getStorage('email');
@@ -58,7 +59,7 @@ const Verification = props => {
   useEffect(() => {    
 		let arr = JSON.parse(JSON.stringify(input));
     if (!input["vCode"] || input['vCode'].length !== 6) {
-      arr["vCode"] = constants.ENTER_VALID_EMAIL;
+      arr["vCode"] = t('verification.enter_valid_code');
     } else {
       arr["vCode"] = "";
     }
@@ -75,26 +76,26 @@ const Verification = props => {
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>
-					<Typography variant={"h2"} className={classes.register} color="primary">kod weryfikacyjny</Typography>
-					<Typography variant={"h2"} className={classes.registerTitle} color="primary">Wprowadź kod weryfikacyjny, aby odzyskać hasło</Typography>
+					<Typography variant={"h2"} className={classes.register} color="primary">{t('verification.register_name')}</Typography>
+					<Typography variant={"h2"} className={classes.registerTitle} color="primary">{t('verification.register_title')}</Typography>
 				</div>
         <div className={classes.mainContainer}>
           <div className={classes.loginForm}>						
             <div>
-							<div className={classes.input_box_label}><label for="vCode">Kod weryfikacyjny</label></div>
+							<div className={classes.input_box_label}><label for="vCode">{t('verification.verify_code')}</label></div>
               <input className={classes.input_box} type="text" value={input.vCode} name="vCode" id="vCode" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
               <div className={classes.error_log}>{tryLogin && error["vCode"] && error["vCode"].length > 0 && error.vCode}</div>
             </div>
             <div className={classes.buttonContainer}>
               <Button variant="contained" color="secondary" className={classes.btnVerification} onClick={handleVerification}>
-								Wyślij kod weryfikacyjny
+								{t('verification.send_verify')}
               </Button>
-              <Link to="/login" component={RouterLink} className={classes.btnLogin}>Zaloguj się</Link>
+              <Link to="/login" component={RouterLink} className={classes.btnLogin}>{t('verification.go_login')}</Link>
             </div>
           </div>
         </div>
 				<Typography variant={"h2"} className={classes.footer} >
-					Przesyłając ten formularz, zgadzasz się na <a href="https://" target="_blank" className={classes.linkColor}>Warunki korzystania z usługi</a>. Aby uzyskać więcej informacji na temat polityki prywatności w zakresie przetwarzania danych osobowych, kliknij tutaj: Polityka <a href="https://" target="_blank" className={classes.linkColor}>plików cookie</a> i <a href="https://" target="_blank" className={classes.linkColor}>Polityka prywatności</a> lub skontaktuj się z nami pod adresem <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
+					{t('sign_in.footer_one')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_two')}</a>{t('sign_in.footer_three')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_four')}</a> i <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_five')}</a> {t('sign_in.footer_six')} <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
 				</Typography>
       </div>
       {
@@ -115,4 +116,4 @@ Verification.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(Verification);
+export default withTranslation('common')(withRouter(Verification));

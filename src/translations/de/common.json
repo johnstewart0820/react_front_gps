@@ -1,0 +1,88 @@
+{
+  "sign_in": {
+    "welcome": "Willkommen in der Anwendung!",
+    "create_project": "Anmelden und eigene Projekte erstellen",
+    "email_login": "E-Mail / Login",
+    "password": "Passwort",
+    "forgot": "Ich habe mein Passwort vergessen",
+    "remember": "erinnere dich an mich",
+    "enter_invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "check_all_fields": "Bitte alle Felder ausfüllen.",
+    "enter_password:": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    "enter_same_password": "Passwörter müssen identisch sein.",
+    "check_policy": "Bitte akzeptieren Sie die Vorschriften.",
+    "google_login_fail": "Google-Anmeldefehler",
+    "sign_in": "Anmelden",
+    "register": "Sie haben noch kein Konto? registrieren!",
+    "sign_with": "Einloggen mit:",
+    "footer_one": "Mit dem Absenden dieses Formulars stimmen Sie zu",
+    "footer_two": "Nutzungsbedingungen",
+    "footer_three": "Weitere Informationen zur Datenschutzrichtlinie zur Verarbeitung personenbezogener Daten finden Sie hier: Richtlinie",
+    "footer_four": "Cookies",
+    "footer_five": "Datenschutzerklärung",
+    "footer_six": "oder kontaktieren Sie uns unter",
+    "accept": "akzeptieren",
+    "yes": "ja",
+    "no": "nein"
+  },
+  "register": {
+    "register": "registrieren",
+    "create_project": "Geben Sie Ihre Daten ein und erstellen Sie Ihre eigenen Projekte!",
+    "email": "Email",
+    "Passwort": "Passwort",
+    "confirm_password": "Ich bestätige mein Passwort",
+    "first_name": "Vorname",
+    "last_name": "Nachname",    
+    "regiion": "Land / Region",
+    "communication": "Marketingkommunikationspräferenzen",
+    "description": "Wir können Sie von Zeit zu Zeit bezüglich unserer Produkte und Dienstleistungen sowie anderer Inhalte kontaktieren, die für Sie von Interesse sein könnten",
+    "back": "zurück",
+    "create_account": "Konto erstellen",
+    "regulation": "Bestimmungen",
+    "enter_invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "check_all_fields": "Bitte alle Felder ausfüllen.",
+    "enter_password:": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    "enter_same_password": "Passwörter müssen identisch sein.",
+    "enter_first_name": "Bitte geben Sie Ihren Vornamen ein.",
+    "enter_last_name": "Bitte geben Sie Ihren Nachnamen ein.",
+    "accept": "akzeptieren",
+    "yes": "ja",
+    "no": "nein"
+  },
+  "forgot": {
+    "recover_password": "Kennwort wiederherstellen",
+    "check_email": "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort wiederherzustellen",
+    "email": "Email",
+    "send": "Senden",
+    "back": "Zur vorherigen Seite zurückkehren",    
+    "check_all_fields": "Bitte füllen Sie alle Felder aus."
+  },
+  "regulation": {
+    "regulation": "Regulierung",
+    "regulation_title": "Geben Sie Ihre Daten ein und erstellen Sie Ihre eigenen Designs!",
+    "back": "zurück"
+  },
+  "reset_password": {
+    "reset_name": "Passwort wiederherstellen",
+    "reset_title": "Geben Sie ein neues Passwort ein, um das Passwort wiederherzustellen",
+    "new_password": "Neues Passwort setzen",
+    "Passwort": "Passwort",
+    "confirm_password": "Passwort wiederholen",
+    "set_password": "Set password",
+    "enter_password:": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    "enter_same_password": "Passwörter müssen übereinstimmen."
+  },
+  "verification": {
+    "enter_valid_code": "Geben Sie einen gültigen Code ein!",
+    "check_all_fields": "Bitte alle Felder ausfüllen.",
+    "register_name": "Bestätigungscode",
+    "register_title": "Bitte geben Sie den Bestätigungscode ein, um das Passwort wiederherzustellen",
+    "verify_code": "Verifizierungscode",
+    "send_verify": "Bestätigungscode senden",
+    "go_login": "Anmelden"
+  },
+  "top_bar": {
+    "help": "Wie es funktioniert",
+    "contact": "Kontakt"
+  }
+}

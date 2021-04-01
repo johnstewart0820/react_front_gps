@@ -1,0 +1,88 @@
+{
+  "sign_in": {
+    "welcome": "Welcome to the application!",
+    "create_project": "Log in and create your own projects",
+    "email_login": "E-mail / Login",
+    "password": "Password",
+    "forgot": "I forgot my password",
+    "remember": "Remember me",
+    "enter_invalid_email": "Please enter a valid e-mail address.",
+    "check_all_fields": "Please complete all fields.",
+    "enter_password:": "Password must be at least 6 characters long.",
+    "enter_same_password": "Passwords must be the same.",
+    "check_policy": "Please accept the regulations.",
+    "google_login_fail": "Google login failure",
+    "sign_in": "Log in",
+    "register": "you don't have an account? register!",
+    "sign_with": "Login with:",
+    "footer_one": "By submitting this form, you agree to",
+    "footer_two": "Terms of Service",
+    "footer_three": ". For more information on the privacy policy regarding the processing of personal data, please click here: Policy",
+    "footer_four": "cookies",
+    "footer_five": "Privacy Policy",
+    "footer_six": "or contact us at",
+    "accept": "Accept",
+    "yes": "YES",
+    "no": "NO"
+  },
+  "register": {
+    "register": "Register",
+    "create_project": "Enter your data and create your own projects!",
+    "email": "E-mail",
+    "password": "Password",
+    "confirm_password": "I confirm my password",
+    "first_name": "Name",
+    "last_name": "Surname",
+    "region": "Country / Region",
+    "communication": "Marketing communication preferences",
+    "description": "We may contact you from time to time about our products and services, as well as other content that may be of interest to you",
+    "back": "Back",
+    "create_account": "Create Account",
+    "regulation": "Regulations",
+    "enter_invalid_email": "Please enter a valid e-mail address.",
+    "check_all_fields": "Please complete all fields.",
+    "enter_password:": "Password must be at least 6 characters long.",
+    "enter_same_password": "Passwords must be the same.",
+    "enter_first_name": "Please enter your first name.",
+    "enter_last_name": "Please enter your last name.",
+    "accept": "Accept",
+    "yes": "YES",
+    "no": "NO"
+  },
+  "forgot": {
+    "recover_password": "Recover password",
+    "check_email": "Enter your e-mail address to recover your password",
+    "email": "E-mail",
+    "send": "Send",
+    "back": "Return to the previous page",
+    "check_all_fields": "Please complete all fields."
+  },
+  "regulation": {
+    "regulation": "regulations",
+    "regulation_title": "Enter your details and create your own designs!",
+    "back": "Back"
+  },
+  "reset_password": {
+    "reset_name": "Recover password",
+    "reset_title": "Enter new password to recover password",
+    "new_password": "Set new password",
+    "password": "Password",
+    "confirm_password": "Repeat password",
+    "set_password": "Set password",
+    "enter_password:": "Password must be at least 6 characters long.",
+    "enter_same_password": "Passwords must match."
+  },
+  "verification": {
+    "enter_valid_code": "enter a valid code!",
+    "check_all_fields": "Please complete all fields.",
+    "register_name": "verification code",
+    "register_title": "Please enter verification code to recover password",
+    "verify_code": "Verification code",
+    "send_verify": "Send verification code",
+    "go_login": "Log in"
+  },
+  "top_bar": {
+    "help": "How it works",
+    "contact": "Contact"
+  }
+}

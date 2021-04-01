@@ -10,11 +10,12 @@ import {
 import useStyles from './style';
 import auth from '../../apis/auth';
 import { useToasts } from 'react-toast-notifications'
+import { withTranslation } from 'react-i18next';
 import constants from '../../utils/constants';
 import storage from 'utils/storage';
 
 const Forgot = props => {
-  const { history } = props;
+  const { history, t } = props;
 
   const classes = useStyles();
 
@@ -34,7 +35,7 @@ const Forgot = props => {
 
   const handleForgot = event => {		
     if ((error && (error.email && error.email.length > 0)) || !input.email) {
-      addToast(<label>{constants.CHECK_ALL_FIELDS}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
+      addToast(<label>{t('forgot.check_all_fields')}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })
     } else {
       setProgressStatus(true);
 			storage.setStorage('email', input.email);
@@ -74,28 +75,28 @@ const Forgot = props => {
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>
-					<Typography variant={"h2"} className={classes.forgot} color="primary">Odzyskaj hasło</Typography>
-					<Typography variant={"h2"} className={classes.forgotTitle} color="primary">Podaj swój adres e-mail, aby odzyskać hasło</Typography>
+					<Typography variant={"h2"} className={classes.forgot} color="primary">{t('forgot.recover_password')}</Typography>
+					<Typography variant={"h2"} className={classes.forgotTitle} color="primary">{t('forgot.check_email')}</Typography>
 				</div>
         <div className={classes.mainContainer}>          
           <div className={classes.loginForm}>						
             <div>
-              <div className={classes.input_box_label}><label htmlFor="emailInput">E-mail</label></div>
+              <div className={classes.input_box_label}><label htmlFor="emailInput">{t('forgot.email')}</label></div>
               <input className={classes.input_box} type="email" value={input.email} name="email" id="emailInput" onChange={handleChange} onKeyPress={handleKeyPress} />
               <div className={classes.error_log}>{error["email"] && error["email"].length > 0 && error.email}</div>
             </div>
             <div className={classes.buttonContainer}>    
               <Button variant="contained" color="secondary" className={classes.btnForgot} onClick={handleForgot}>
-                Wyślij
+								{t('forgot.send')}
               </Button>
               <Link to="/login" component={RouterLink} className={classes.btnBack}>
-                Powróc do poprzedniej strony
+								{t('forgot.back')}
               </Link>
             </div>
           </div>
         </div>
 				<Typography variant={"h2"} className={classes.footer} >
-					Przesyłając ten formularz, zgadzasz się na <a href="https://" target="_blank" className={classes.linkColor}>Warunki korzystania z usługi</a>. Aby uzyskać więcej informacji na temat polityki prywatności w zakresie przetwarzania danych osobowych, kliknij tutaj: Polityka <a href="https://" target="_blank" className={classes.linkColor}>plików cookie</a> i <a href="https://" target="_blank" className={classes.linkColor}>Polityka prywatności</a> lub skontaktuj się z nami pod adresem <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
+					{t('sign_in.footer_one')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_two')}</a>{t('sign_in.footer_three')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_four')}</a> i <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_five')}</a> {t('sign_in.footer_six')} <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
 				</Typography>
       </div>
       {
@@ -116,4 +117,4 @@ Forgot.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(Forgot);
+export default withTranslation('common')(withRouter(Forgot));

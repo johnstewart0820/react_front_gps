@@ -11,6 +11,7 @@ import useStyles from './style';
 import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
+import { withTranslation } from 'react-i18next';
 import { useLocation } from "react-router-dom";
 import constants from '../../utils/constants';
 
@@ -18,7 +19,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 const ResetPassword = props => {
-  const { history } = props;
+  const { history, t } = props;
   let query = useQuery();
   let token = query.get("token");
   const classes = useStyles();
@@ -63,14 +64,14 @@ const ResetPassword = props => {
   useEffect(() => {
     let arr = JSON.parse(JSON.stringify(error));
     if (input["password"] && input["password"].length <= 5) {
-      arr["password"] = constants.ENTER_PASSWORD;
+      arr["password"] = t('reset_password.enter_password');
     } else {
       arr["password"] = "";
     }
     let reset_password = input["reset_password"];
     let password = input["password"];
     if (input["reset_password"] && reset_password !== password) {
-      arr["reset_password"] = constants.ENTER_SAME_PASSWORD;
+      arr["reset_password"] = t('reset_password.enter_same_password');
     } else {
       arr["reset_password"] = "";
     }
@@ -82,31 +83,31 @@ const ResetPassword = props => {
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>
-					<Typography variant={"h2"} className={classes.reset} color="primary">Odzyskaj hasło</Typography>
-					<Typography variant={"h2"} className={classes.resetTitle} color="primary">Wprowadź nowe hasło, aby odzyskać hasło</Typography>
+					<Typography variant={"h2"} className={classes.reset} color="primary">{t('reset_password.reset_name')}</Typography>
+					<Typography variant={"h2"} className={classes.resetTitle} color="primary">{t('reset_password.reset_title')}</Typography>
 				</div>
         <div className={classes.mainContainer}>        
           <div className={classes.loginForm}>
 						<div>
-							<span>Ustaw nowe hasło</span>
+							<span>{t('reset_password.new_password')}</span>
 							<div>
-								<div className={classes.input_box_label} htmlFor="passwordInput">Hasło</div>
+								<div className={classes.input_box_label} htmlFor="passwordInput">{t('reset_password.password')}</div>
 								<input className={classes.input_box} type="password" value={input.password} name="password" placeholder="Hasło" onChange={handleChange} onKeyPress={handleKeyPress} />
 								<div className={classes.error_log}>{error["password"] && error["password"].length > 0 && error.password}</div>
-								<div className={classes.input_box_label} htmlFor="resetpasswordInput">Powtórz hasło</div>
+								<div className={classes.input_box_label} htmlFor="resetpasswordInput">{t('reset_password.confirm_password')}</div>
 								<input className={classes.input_box} type="password" value={input.reset_password} name="reset_password" onChange={handleChange} onKeyPress={handleKeyPress} />
 								<div className={classes.error_log}>{error["reset_password"] && error["reset_password"].length > 0 && error.reset_password}</div>
 							</div>
 						</div>
 						<div className={classes.buttonContainer}>
 							<Button variant="contained" color="secondary" className={classes.btnLogin} onClick={handleResetPassword}>
-								Ustaw hasło
+								{t('reset_password.set_password')}
 							</Button>
 						</div>
 					</div>
         </div>
 				<Typography variant={"h2"} className={classes.footer} >
-					Przesyłając ten formularz, zgadzasz się na <a href="https://" target="_blank" className={classes.linkColor}>Warunki korzystania z usługi</a>. Aby uzyskać więcej informacji na temat polityki prywatności w zakresie przetwarzania danych osobowych, kliknij tutaj: Polityka <a href="https://" target="_blank" className={classes.linkColor}>plików cookie</a> i <a href="https://" target="_blank" className={classes.linkColor}>Polityka prywatności</a> lub skontaktuj się z nami pod adresem <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
+					{t('sign_in.footer_one')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_two')}</a>{t('sign_in.footer_three')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_four')}</a> i <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_five')}</a> {t('sign_in.footer_six')} <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
 				</Typography>
       </div>
       {
@@ -127,4 +128,4 @@ ResetPassword.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(ResetPassword);
+export default withTranslation('common')(withRouter(ResetPassword));

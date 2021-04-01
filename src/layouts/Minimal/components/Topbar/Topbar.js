@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { SiteInfoContextConsumer } from "App";
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Button, Divider, Grid } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Divider, Grid, Menu, MenuItem } from '@material-ui/core';
 import { HelpIcon, ContactIcon, LogoIcon } from 'assets/svg/icons';
+import { withTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    boxShadow: 'none',
+	root: {
+		boxShadow: 'none',
 		background: theme.palette.topbar_background,
 		color: 'white',
-		height: theme.spacing(10),		
+		height: theme.spacing(10),
 		justifyContent: 'center',
 		zIndex: 500,
-  },
+	},
 	toolBar: {
 		display: 'flex',
 		justifyContent: 'space-between'
@@ -22,52 +24,90 @@ const useStyles = makeStyles((theme) => ({
 	logoButton: {
 		width: '50px',
 		height: '50px'
-	}
+	},
 }));
 
 const Topbar = props => {
-  const { className, ...rest } = props;
-  const classes = useStyles();
+	const { className, i18n, t, ...rest } = props;
+	const classes = useStyles();
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [selectedLanguage, setLanguage] = useState('PL');
 
-  return (
-    <AppBar
-      {...rest}
-      className={clsx(classes.root, className)}
-      color="primary"
-      position="fixed"
-    >
-      <Toolbar className={classes.toolBar}>
-        <RouterLink to="/">
-					<Button						
-						startIcon={<LogoIcon className={classes.logoButton}/>}
-					>
-					</Button>
-        </RouterLink>
-				<div>
-					<Grid container alignItems="center">
-						<Divider className={classes.divider} orientation="vertical" flexItem />
-						<Button
-							className={classes.button}
-							startIcon={<HelpIcon/>}
-						>
-							Jak to działa
+	const handleLanguageClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = (event) => {
+		let lang = event.currentTarget.outerText;
+		if (lang === "") lang = selectedLanguage
+		setLanguage(lang);
+		i18n.changeLanguage(lang.toLowerCase());
+		setAnchorEl(null);
+	};
+
+	return (
+		<SiteInfoContextConsumer>
+			{ (props) => (
+				<AppBar
+					{...rest}
+					className={clsx(classes.root, className)}
+					color="primary"
+					position="fixed"
+				>
+					<Toolbar className={classes.toolBar}>
+						<RouterLink to="/">
+							<Button
+								startIcon={<LogoIcon className={classes.logoButton} />}
+							>
+							</Button>
+						</RouterLink>
+						<div>
+							<Grid container alignItems="center">
+								<Divider className={classes.divider} orientation="vertical" flexItem />
+								<Button
+									className={classes.button}
+									startIcon={<HelpIcon />}
+								>
+									{t('top_bar.help')}									
 						</Button>
-						<Divider orientation="vertical" flexItem />
-						<Button
-							className={classes.button}
-							startIcon={<ContactIcon/>}
-						>
-							Kontakt
+								<Divider orientation="vertical" flexItem />
+								<Button
+									className={classes.button}
+									startIcon={<ContactIcon />}
+								>
+									{t('top_bar.contact')}	
 						</Button>
-					</Grid>
-			</div>
-      </Toolbar>
-    </AppBar>
-  );
+								<Divider orientation="vertical" flexItem />
+								<Button
+									className={classes.button}
+									onClick={handleLanguageClick}
+								>
+									{selectedLanguage}
+								</Button>
+								<Menu
+									id="language-menu"
+									anchorEl={anchorEl}
+									keepMounted
+									open={Boolean(anchorEl)}
+									onClose={handleClose}
+								>
+									{selectedLanguage !== "PL" && <MenuItem onClick={handleClose} >PL</MenuItem>}
+									{selectedLanguage !== "EN" && <MenuItem onClick={handleClose} >EN</MenuItem>}
+									{selectedLanguage !== "DE" && <MenuItem onClick={handleClose} >DE</MenuItem>}
+									{selectedLanguage !== "ES" && <MenuItem onClick={handleClose} >ES</MenuItem>}
+								</Menu>
+							</Grid>
+						</div>
+					</Toolbar>
+				</AppBar>
+			)}
+		</SiteInfoContextConsumer>
+	);
 };
 
 Topbar.propTypes = {
-  className: PropTypes.string
+	className: PropTypes.string,
+	i18n: PropTypes.shape({ changeLanguage: PropTypes.func }).isRequired,
 };
 
-export default Topbar;
+export default withTranslation('common')(Topbar);

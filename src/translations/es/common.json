@@ -1,0 +1,88 @@
+{
+  "sign_in": {
+    "welcome": "¡Bienvenido a la aplicación!",
+    "create_project": "Inicie sesión y cree sus propios proyectos",
+    "email_login": "Correo electrónico / Inicio de sesión",
+    "password": "Contraseña",
+    "forgot": "Olvidé mi contraseña",
+    "remember": "Recuérdame",
+    "enter_invalid_email": "Introduzca una dirección de correo electrónico válida.",
+    "check_all_fields": "Complete todos los campos.",
+    "enter_password:": "La contraseña debe tener al menos 6 caracteres.",
+    "enter_same_password": "Las contraseñas deben ser iguales.",
+    "check_policy": "Acepte las regulaciones.",
+    "google_login_fail": "Error de inicio de sesión de Google",
+    "sign_in": "Iniciar sesión",
+    "register": "¿no tienes una cuenta? ¡Regístrate!",
+    "sign_with": "Iniciar sesión con:",
+    "footer_one": "Al enviar este formulario, acepta",
+    "footer_two": "Condiciones del servicio",
+    "footer_three": ". Para obtener más información sobre la política de privacidad con respecto al procesamiento de datos personales, haga clic aquí: Política",
+    "footer_four": "cookies",
+    "footer_five": "Política de privacidad",
+    "footer_six": "o contáctenos en",
+    "accept": "Aceptar",
+    "yes": "Sí",
+    "no": "no"
+  },
+  "register": {
+    "register": "Registrarse",
+    "create_project": "¡Ingresa tus datos y crea tus propios proyectos!",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirm_password": "Confirmo mi contraseña",
+    "fist_name": "primer nombre",
+    "last_name": "apellido",
+    "region": "País / Región",
+    "communication": "Preferencias de comunicación de marketing",
+    "description": "Es posible que nos comuniquemos con usted de vez en cuando sobre nuestros productos y servicios, así como sobre otro contenido que pueda ser de su interés",
+    "back": "atras",
+    "create_account": "Crear cuenta",
+    "regulation": "Reglamentos",
+    "enter_invalid_email": "Introduzca una dirección de correo electrónico válida.",
+    "check_all_fields": "Complete todos los campos.",
+    "enter_password:": "La contraseña debe tener al menos 6 caracteres.",
+    "enter_same_password": "Las contraseñas deben ser iguales.",
+    "enter_first_name": "Por favor ingrese su nombre.",
+    "enter_last_name": "Por favor ingrese su apellido.",
+    "accept": "Aceptar",
+    "yes": "Sí",
+    "no": "no"
+  },
+  "forgot": {
+    "recover_password": "Recuperar contraseña",
+    "check_email": "Ingrese su dirección de correo electrónico para recuperar su contraseña",
+    "email": "Correo electrónico",
+    "send" : "enviar",
+    "back": "Volver a la página anterior",
+    "check_all_fields": "Complete todos los campos"
+  },
+  "regulation": {
+    "regulation": "regulaciones",
+    "regulation_title": "¡Ingrese sus datos y cree sus propios diseños!",
+    "back": "atras"
+  },
+  "reset_password": {
+    "reset_name": "Recuperar contraseña",
+    "reset_title": "Ingresa una nueva contraseña para recuperarla",
+    "new_password": "Establecer nueva contraseña",
+    "password": "Contraseña",
+    "confirm_password": "Repetir contraseña",
+    "set_password": "Establecer contraseña",
+    "enter_password:": "La contraseña debe tener al menos 6 caracteres.",
+    "enter_same_password": "Las contraseñas deben coincidir"
+  },
+  "verification": {
+    "enter_valid_code": "¡introduce un código válido!",
+    "check_all_fields": "Complete todos los campos.",
+    "register_name": "código de verificación",
+    "register_title": "Ingrese el código de verificación para recuperar la contraseña",
+    "verify_code": "Código de verificación",
+    "send_verify": "Enviar código de verificación",
+    "go_login": "Iniciar sesión"
+  },
+  "top_bar": {
+    "help": "Cómo funciona",
+    "contact": "Contacto"
+  }
+}

@@ -14,10 +14,11 @@ import useStyles from './style';
 import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import { useToasts } from 'react-toast-notifications';
+import { withTranslation } from 'react-i18next';
 import constants from '../../utils/constants';
 
 const SignUp = props => {	
-  const { history } = props;
+  const { history, t } = props;
 
   const classes = useStyles();
   const { addToast } = useToasts()
@@ -89,31 +90,31 @@ const SignUp = props => {
     let arr = JSON.parse(JSON.stringify(error));		
     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
     if (!input["email"] || (input["email"] && !pattern.test(input["email"]))) {
-      arr["email"] = constants.ENTER_VALID_EMAIL;
+      arr["email"] = t('register.enter_invalid_email');
     } else {
       arr["email"] = "";
     }
 		
 		if (!input["password"] || (input["password"] && input["password"].length <= 5)) {
-      arr["password"] = constants.ENTER_PASSWORD;
+      arr["password"] = t('register.enter_password');
     } else {
       arr["password"] = "";
     }
 
 		if (!input["confirmPassword"] || (input["password"] !== input["confirmPassword"])) {
-      arr["confirmPassword"] = constants.ENTER_SAME_PASSWORD;
+      arr["confirmPassword"] = t('register.enter_same_password');
     } else {
       arr["confirmPassword"] = "";
     }
 
 		if (!input["firstName"]) {
-      arr["firstName"] = constants.ENTER_FIRSTNAME;
+      arr["firstName"] = t('register.enter_first_name');
     } else {
       arr["firstName"] = "";
     }
 
 		if (!input["lastName"]) {
-      arr["lastName"] = constants.ENTER_LASTNAME;
+      arr["lastName"] = t('register.enter_last_name');
     } else {
       arr["lastName"] = "";
     }
@@ -131,34 +132,34 @@ const SignUp = props => {
     <>
       <div className={classes.root}>
 				<div className={classes.headerContainer}>
-					<Typography variant={"h2"} className={classes.register} color="primary">Zarejestruj się</Typography>
-					<Typography variant={"h2"} className={classes.registerTitle} color="primary">Podaj swoje dane i stwórz własny projekty!</Typography>
+					<Typography variant={"h2"} className={classes.register} color="primary">{t('register.register')}</Typography>
+					<Typography variant={"h2"} className={classes.registerTitle} color="primary">{t('register.create_project')}</Typography>
 				</div>
         <div className={classes.mainContainer}>
           <div className={classes.loginForm}>				
             <div>
-							<div className={classes.input_box_label}><label for="email">E-mail</label></div>
+							<div className={classes.input_box_label}><label for="email">{t('register.email')}</label></div>
               <input className={classes.input_box} type="email" value={input.email} name="email" id="email" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
               <div className={classes.error_log}>{trySignup && error["email"] && error["email"].length > 0 && error.email}</div>
 
-							<div className={classes.input_box_label}><label htmlFor="password">Hasło</label></div>
+							<div className={classes.input_box_label}><label htmlFor="password">{t('register.password')}</label></div>
               <input className={classes.input_box} type="password" value={input.password} label="password" name="password" id="password" onChange={handleChange} onKeyPress={handleKeyPress} />
               <div className={classes.error_log}>{trySignup && error["password"] && error["password"].length > 0 && error.password}</div>
 
-							<div className={classes.input_box_label}><label htmlFor="confirmPassword">Potwierdzam hasło</label></div>
+							<div className={classes.input_box_label}><label htmlFor="confirmPassword">{t('register.confirm_password')}</label></div>
               <input className={classes.input_box} type="password" value={input.confirmPassword} label="confirmPassword" name="confirmPassword" id="confirmPassword" onChange={handleChange} onKeyPress={handleKeyPress} />
               <div className={classes.error_log}>{trySignup && error["confirmPassword"] && error["confirmPassword"].length > 0 && error.confirmPassword}</div>
               
-							<div className={classes.input_box_label}><label for="firstName">Imię</label></div>
+							<div className={classes.input_box_label}><label for="firstName">{t('register.first_name')}</label></div>
               <input className={classes.input_box} type="text" value={input.firstName} name="firstName" id="firstName" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
               <div className={classes.error_log}>{trySignup && error["firstName"] && error["firstName"].length > 0 && error.firstName}</div>
 
-							<div className={classes.input_box_label}><label for="lastName">Imię</label></div>
+							<div className={classes.input_box_label}><label for="lastName">{t('register.last_name')}</label></div>
               <input className={classes.input_box} type="text" value={input.lastName} name="lastName" id="lastName" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' />
               <div className={classes.error_log}>{trySignup && error["lastName"] && error["lastName"].length > 0 && error.lastName}</div>
 
 
-							<div className={classes.input_box_label}><label for="region">Kraj/Region</label></div>
+							<div className={classes.input_box_label}><label for="region">{t('register.regiion')}</label></div>
 							<SingleSelect value={selectedCountry} handleChange={setSelectedCountry} list={countryList} />
               {/* <input className={classes.input_box} type="text" value={input.region} name="region" id="region" onChange={handleChange} onKeyPress={handleKeyPress} autocomplete='off' /> */}
               <div className={classes.error_log}>{trySignup && error["region"] && error["region"].length > 0 && error.region}</div>
@@ -167,10 +168,10 @@ const SignUp = props => {
         </div>
 				<div>
 					<Typography variant={"h2"} className={classes.preferenceTitle} >
-						Preferencje komunikacji marketingowej
+						{t('register.communication')}
 					</Typography>
 					<Typography variant={"h2"} className={classes.preferenceDescription} >
-						Od czasu do czasu możemy kontaktować się z Tobą w sprawie naszych produktów i usług, a także innych treści, które mogą Cię zainteresować
+						{t('register.description')}
 					</Typography>
 					<div className={classes.preferenceContainer}>
 						<FormControlLabel
@@ -181,7 +182,7 @@ const SignUp = props => {
 									onChange={handleAgreePreference}
 								/>
 							}
-							label="TAK"
+							label={t('register.yes')}
 						/>
 						<FormControlLabel
 							className={classes.acceptRegulation}
@@ -191,12 +192,12 @@ const SignUp = props => {
 									onChange={handleDisagreePreference}
 								/>
 							}
-							label="NIE"
+							label={t('register.no')}
 						/>	
 					</div>
 				</div>
 				<Typography variant={"h2"} className={classes.footer} >
-					Przesyłając ten formularz, zgadzasz się na <a href="https://" target="_blank" className={classes.linkColor}>Warunki korzystania z usługi</a>. Aby uzyskać więcej informacji na temat polityki prywatności w zakresie przetwarzania danych osobowych, kliknij tutaj: Polityka <a href="https://" target="_blank" className={classes.linkColor}>plików cookie</a> i <a href="https://" target="_blank" className={classes.linkColor}>Polityka prywatności</a> lub skontaktuj się z nami pod adresem <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
+					{t('sign_in.footer_one')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_two')}</a>{t('sign_in.footer_three')} <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_four')}</a> i <a href="https://" target="_blank" className={classes.linkColor}>{t('sign_in.footer_five')}</a> {t('sign_in.footer_six')} <a href="https://" target="_blank" className={classes.linkColor}>mail@mail.pl</a>.
 				</Typography>
 				<div className={classes.regulationContainer}>
 					<FormControlLabel
@@ -207,16 +208,16 @@ const SignUp = props => {
 								onChange={handleAcceptRegulation}
 							/>
 						}
-						label="Zaakceptuj"
+						label={t('register.accept')}
 					/>
-					<Link to="/regulation" component={RouterLink} className={classes.btnRegulation}>Regulamin</Link>
+					<Link to="/regulation" component={RouterLink} className={classes.btnRegulation}>{t('register.regulation')}</Link>
 				</div>
 				<div className={classes.buttonContainer}>
 					<Button variant="contained" color="secondary" className={classes.btnBack} onClick={handleBack}>
-						Wstecz
+						{t('register.back')}
 					</Button>
 					<Button variant="contained" color="secondary" className={classes.btnSignUp} onClick={handleSignUp}>
-						Utwórz konto
+						{t('register.create_account')}
 					</Button>
 				</div>				
       </div>
@@ -238,4 +239,4 @@ SignUp.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(SignUp);
+export default withTranslation('common')(withRouter(SignUp));
