@@ -104,14 +104,14 @@ const Topbar = props => {
 								<Divider className={classes.divider} orientation="vertical" flexItem />
 								<Button
 									className={classes.button}
-									startIcon={<HelpIcon />}
+									startIcon={<HelpIcon />}									
 								>
 									{t('top_bar.help')}
 								</Button>
 								<Divider orientation="vertical" flexItem />
 								<Button
 									className={classes.button}
-									startIcon={<ContactIcon />}
+									startIcon={<ContactIcon />}									
 								>
 									{t('top_bar.contact')}
 								</Button>
