@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { SiteInfoContextConsumer } from "App";
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -32,6 +32,7 @@ const Topbar = props => {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [selectedLanguage, setLanguage] = useState('PL');
+	const history = useHistory();
 
 	const handleLanguageClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -45,6 +46,17 @@ const Topbar = props => {
 		setAnchorEl(null);
 	};
 
+	const handleLogin = (props) => {
+		props.handleChangeRightView(0);		
+	}
+
+	const handleHelp = (props) => {
+		props.handleChangeRightView(1);		
+	}
+
+	const handleContact = (props) => {
+		props.handleChangeRightView(2);
+	}
 	return (
 		<SiteInfoContextConsumer>
 			{ (props) => (
@@ -55,28 +67,29 @@ const Topbar = props => {
 					position="fixed"
 				>
 					<Toolbar className={classes.toolBar}>
-						<RouterLink to="/">
 							<Button
 								startIcon={<LogoIcon className={classes.logoButton} />}
+								onClick={() => handleLogin(props)}
 							>
 							</Button>
-						</RouterLink>
 						<div>
 							<Grid container alignItems="center">
 								<Divider className={classes.divider} orientation="vertical" flexItem />
 								<Button
 									className={classes.button}
 									startIcon={<HelpIcon />}
+									onClick={() => handleHelp(props)}
 								>
-									{t('top_bar.help')}									
-						</Button>
+									{t('top_bar.help')}
+								</Button>
 								<Divider orientation="vertical" flexItem />
 								<Button
 									className={classes.button}
 									startIcon={<ContactIcon />}
+									onClick={() => handleContact(props)}
 								>
-									{t('top_bar.contact')}	
-						</Button>
+									{t('top_bar.contact')}
+								</Button>
 								<Divider orientation="vertical" flexItem />
 								<Button
 									className={classes.button}

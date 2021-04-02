@@ -4,7 +4,7 @@ const white = '#FFFFFF';
 const black = '#000000';
 const pink = '#ff6b66';
 const gray = '#44545e';
-const green= '#4db249';
+const green= '#FFFFFF';
 const color = '#454648';
 const btn_gray = '#727E91';
 const pink_disable = '#a02000';
@@ -13,7 +13,8 @@ const topbar_color = '#FFFFFF';
 const topbar_background = '#47AAEE';
 const black_white = '#FFFFFF';
 const sidebar_color = '#2f2f37';
-const sidebar_hover_color = '#EBECF0';
+const sidebar_background_color = '#EDF8FE';
+const sidebar_hover_color = '#47AAEE';
 const sidebar_title_color = 'gray';
 const card_border = 'none';
 const pagination_background = 'rgba(0, 0, 0, 0.08)';
@@ -31,6 +32,7 @@ export default {
 	topbar_background,
 	black_white,
 	sidebar_color,
+	sidebar_background_color,
 	sidebar_hover_color,
 	sidebar_title_color,
 	card_border,

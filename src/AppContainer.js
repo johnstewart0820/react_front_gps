@@ -59,7 +59,7 @@ class AppContainer extends React.Component {
 		}
 	}
 	render() {
-		return <>{React.cloneElement(this.props.children, { role: this.state.role })}</>;
+		return <>{React.cloneElement(this.props.children, { role: 1 })}</>;
 	}
 }
 

@@ -62,7 +62,7 @@ const SignIn = props => {
           if (response.code === 200) {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-            setTimeout(function () { history.push('/cockpit'); }, 1000);
+            setTimeout(function () { history.push('/dashboard'); }, 1000);
           } else {
             setProgressStatus(false);
             addToast(<label>{response.message}</label>, { appearance: 'error', autoDismissTimeout: 5000, autoDismiss: true })

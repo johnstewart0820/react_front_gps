@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
 			}
     },
     root: {
-      backgroundColor: theme.palette.white,
+      backgroundColor: theme.palette.sidebar_background_color,
       display: 'flex',
       flexDirection: 'column',
       height: '100%',

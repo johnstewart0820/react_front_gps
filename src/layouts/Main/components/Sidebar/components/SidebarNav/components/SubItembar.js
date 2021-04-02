@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
 import React, { forwardRef, useState, } from 'react';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -9,7 +9,6 @@ import { List, ListItem, Button, Typography, Collapse } from '@material-ui/core'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
 const useStyles = makeStyles(theme => ({
 	root: {},
 	item: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: 'flex-start',
 		textTransform: 'none',
 		letterSpacing: 0,
-		width: '100%',
+		width: '270px',
 		fontWeight: 400,
 		fontSize: '0.8750em',
 		color: theme.palette.sidebar_color,
@@ -79,7 +78,7 @@ const useStyles = makeStyles(theme => ({
 			color: theme.palette.sidebar_hover_color,
 		},
 		backgroundColor: theme.palette.green,
-		color: theme.palette.sidebar_hover_color,
+		color: `${theme.palette.sidebar_hover_color} !important` ,
 		borderRadius: '0px'
 	},
 	active_sub: {
@@ -89,14 +88,14 @@ const useStyles = makeStyles(theme => ({
 		padding: '0px'
 	},
 	button_sub: {
-		padding: '20px 16px 20px 30px',
+		padding: '10px 16px 10px 30px',
 		justifyContent: 'flex-start',
 		textTransform: 'none',
 		letterSpacing: 0,
-		width: '100%',
+		width: '270px',
 		fontWeight: 400,
 		fontSize: '0.8750em',
-		// color: theme.palette.sidebar_color,
+		color: theme.palette.sidebar_color,
 		lineHeight: '1em',
 		'& path': {
 			fill: theme.palette.sidebar_title_color,
@@ -127,10 +126,11 @@ const CustomRouterLink = forwardRef((props, ref) => (
 ));
 
 const SubItembar = props => {
-	const { pages, className, history, ...rest } = props;
+	const { page, className, ...rest } = props;
 	const [open, setOpen] = useState(false);
+	const history = useHistory();
 	const handleClick = (page) => {
-		console.log("++++++++++==============+++++++", page.sub)
+		console.log(page)
 		if (page.sub) {
 			setOpen(!open)
 		} else {
@@ -140,41 +140,78 @@ const SubItembar = props => {
 	const classes = useStyles();
 
 	return (
-		<List
-			{...rest}
-			className={clsx(classes.root, className)}
-		>
-			<>
-					{
-						<Collapse in={open} timeout="auto" unmountOnExit>
-							<List className={classes.sub_list} >
+		page.main_label ?
+			<Typography variant="h2" className={classes.label}>
+				{page.main_label}
+			</Typography>
+			:
+			page.label ?
+				<Typography variant="h3" className={classes.label}>
+					{page.label}
+				</Typography>
+				:
+				(
+					<>
+						<ListItem
+							className={classes.item}
+							disableGutters
+							key={page.title}
+							onClick={() => handleClick(page)}
+						>
+							<Button
+								activeClassName={!page.sub ? classes.active : classes.active_sub}
+								className={classes.button}
+								component={CustomRouterLink}
+								to={page.href}
+							>
+								<SvgIcon className={classes.icon}>
+									{page.icon}
+								</SvgIcon>
+								{/* <div  style={{backgroundImage: `url("${page.icon}")`,backgroundColor: 'transparent'}}></div> */}
+								<div className={classes.title}>
+									{page.title}
+								</div>
 								{
-									pages.map((item, index) => (
-										<ListItem
-											disableGutters
-											className={classes.item}
-											onClick={() => handleClick(item)}
-										>
-											<Button
-												activeClassName={classes.active}
-												className={classes.button_sub}
-												component={CustomRouterLink}
-												to={item.href}
-											>
-												<div className={classes.icon}>{item.icon}</div>
-												{/* <div className={classes.icon}>{item.icon}</div> */}
-												<div className={classes.title}>
-													{item.title}
-												</div>
-											</Button>
-										</ListItem>
-									))
+									page.sub ?
+										open ? <ExpandLess /> : <ExpandMore />
+										:
+										<></>
 								}
-							</List>
-						</Collapse>
-					}
-				</>
-		</List>
+							</Button>
+						</ListItem>
+						{
+							page.sub ?
+								<Collapse in={open} timeout="auto" unmountOnExit>
+									<List className={classes.sub_list}>
+										{
+											page.sub.map((item, index) => (
+												<ListItem
+													disableGutters
+													className={classes.item}
+												>
+													<Button
+														activeClassName={classes.active}
+														className={classes.button_sub}
+														component={CustomRouterLink}
+														to={item.href}
+													>
+														<div className={classes.icon}>{item.icon}</div>
+														{/* <div className={classes.icon}>{item.icon}</div> */}
+														<div className={classes.title}>
+															{item.title}
+														</div>
+													</Button>
+												</ListItem>
+											))
+										}
+									</List>
+								</Collapse>
+								:
+								<></>
+						}
+					</>
+				)
+
 	);
 };
 

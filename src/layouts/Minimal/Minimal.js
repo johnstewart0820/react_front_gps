@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import useStyles from './style';
 import { Grid } from '@material-ui/core';
 import { Topbar, Rightbar } from './components';
+import { Guide, Contact } from 'views';
 
 const Minimal = props => {
   const { children } = props;
@@ -21,8 +22,16 @@ const Minimal = props => {
         	<main className={classes.content}>{children}</main>
         </Grid>   
 				<Grid item xs={12} sm={8}>
-					<Rightbar />        
-        	{/* <main className={classes.content}>{children}</main> */}
+					{
+						props.view === 0 ?
+							<Rightbar/>
+						:
+						props.view === 1 ?
+							<Guide/>
+						:
+							<Contact/>
+					}
+
         </Grid>
       </Grid>
     </div>

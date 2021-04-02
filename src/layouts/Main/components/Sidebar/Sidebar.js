@@ -2,22 +2,12 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Drawer, Button, SvgIcon } from '@material-ui/core';
-import {
-	CostIcon,
+import {	
 	KandydaciIcon,
 	KokpitIcon,
-	ListaiprIcon,
-	ListaOrkIcon,
-	ListauslugIcon,
-	LogzdarzenIcon,
-	PowiadomieniaIcon,
-	PunktyKwalifikacyjneIcon,
-	RaportyIcon,
-	SpecjalisciIcon,
-	SzkoleniaIcon,
-	UczestnicyIcon,
-	UzytkownicyIcon,
-	ZespolOrkIcon
+	ListaiprIcon,	
+	PunktyKwalifikacyjneIcon,	
+	SpecjalisciIcon
 } from './svg/icons';
 
 import storage from '../../../../utils/storage';
@@ -38,26 +28,26 @@ const Sidebar = props => {
 		},
 		{
 			title: 'Nowy projekt',
-			href: '/new_project',
+			href: '/project',
 			icon: <KandydaciIcon />
 		},
 		{
 			title: 'Historia projektu',
-			href: '/project_history',
+			href: '/history',
 			icon: <PunktyKwalifikacyjneIcon />
 		},
 		{
-			title: 'STwoje konto',
+			title: 'Twoje konto',
 			href: '#',
 			icon: <SpecjalisciIcon />,
 			sub: [
 				{
 					title: 'Edycja profilu',
-					href: '/edit_profile',
+					href: '/profile',
 				},
 				{
 					title: 'Płatności i faktury',
-					href: '/payment_invoice',
+					href: '/payment',
 				}]
 		},
 		{
@@ -67,11 +57,11 @@ const Sidebar = props => {
 			sub: [
 				{
 					title: 'Przewodnik',
-					href: '/guid',
+					href: '/guide',
 				},
 				{
 					title: 'Chat z konsultantem',
-					href: '/chat_consultant',
+					href: '/chat',
 				}]
 		}
 	];

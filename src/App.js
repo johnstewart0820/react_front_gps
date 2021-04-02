@@ -33,9 +33,13 @@ i18next.init(i18nextConfig);
 export default class App extends Component {
 	state = {
 		is_contrast: false,
+		view: 0,
 	}
 	toggleContrast = () => {
 		this.setState({ is_contrast: !this.state.is_contrast });
+	}
+	handleChangeRightView = (value) => {
+		this.setState({ ...this.state, view: value});
 	}
 
 	render() {		
@@ -44,7 +48,8 @@ export default class App extends Component {
 				<ToastProvider>
 					<SiteInfoContext.Provider value={{
 						...this.state,
-						toggleContrast: this.toggleContrast
+						toggleContrast: this.toggleContrast,
+						handleChangeRightView: this.handleChangeRightView
 					}} >
 						<ThemeProvider theme={theme(this.state.is_contrast)}>
 							<I18nextProvider i18n={i18next}>

@@ -12,7 +12,14 @@ import {
   Forgot as ForgotView,
   ResetPassword as ResetPasswordView,
 	Regulation as RegulationView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+	Dashboard as DashboardView,
+	Project as ProjectView,
+	History as HistoryView,
+	Profile as ProfileView,
+	Payment as PaymentView,
+	Guide as GuideView,
+	Chat as ChatView
 } from './views';
 
 const Routes = (props) => {
@@ -20,67 +27,53 @@ const Routes = (props) => {
     <Switch>
       <Redirect exact from="/" to="/login"/>
 			<RouteWithLayout 
-				component={SignInView}
+				component={DashboardView}
 				exact
 				layout={MainLayout}
 				title='dashboard'
 				path='/dashboard'
 			/>
 			<RouteWithLayout 
-				component={RegulationView}
+				component={ProjectView}
 				exact
 				layout={MainLayout}
-				title='dashboard'
-				path='/new_project'
+				title='Nowy projekt'
+				path='/project'
 			/>
 			<RouteWithLayout 
-				component={RegulationView}
+				component={HistoryView}
 				exact
 				layout={MainLayout}
-				title='dashboard'
-				path='/project_history'
+				title='Historia projektu'
+				path='/history'
+			/>			
+			<RouteWithLayout 
+				component={ProfileView}
+				exact
+				layout={MainLayout}
+				title='Edycja profilu'
+				path='/profile'
 			/>
 			<RouteWithLayout 
-				component={SignInView}
+				component={PaymentView}
 				exact
 				layout={MainLayout}
-				title='dashboard'
-				path='/your_account'
+				title='Płatności i faktury'
+				path='/payment'
 			/>
 			<RouteWithLayout 
-				component={RegulationView}
+				component={GuideView}
 				exact
 				layout={MainLayout}
-				title='dashboard'
-				path='/edit_profile'
-			/>
+				title='Przewodnik'
+				path='/guide'
+			/>	
 			<RouteWithLayout 
-				component={RegulationView}
+				component={ChatView}
 				exact
 				layout={MainLayout}
-				title='dashboard'
-				path='/payment_invoice'
-			/>
-			<RouteWithLayout 
-				component={SignInView}
-				exact
-				layout={MainLayout}
-				title='dashboard'
-				path='/help'
-			/>
-			<RouteWithLayout 
-				component={RegulationView}
-				exact
-				layout={MainLayout}
-				title='dashboard'
-				path='/guid'
-			/>
-			<RouteWithLayout 
-				component={RegulationView}
-				exact
-				layout={MainLayout}
-				title='dashboard'
-				path='/chat_consultant'
+				title='Chat z konsultantem'
+				path='/chat'
 			/>
       <RouteWithLayout
         component={SignInView}

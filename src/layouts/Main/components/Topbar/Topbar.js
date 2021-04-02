@@ -4,9 +4,12 @@ import { SiteInfoContextConsumer } from "App";
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Button, Divider, Grid, Menu, MenuItem, Typography, Avatar } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Divider, Grid, Menu, MenuItem, Typography, IconButton } from '@material-ui/core';
 import { HelpIcon, ContactIcon, LogoIcon, SubscriptionIcon } from 'assets/svg/icons';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import { withTranslation } from 'react-i18next';
+import storage from 'utils/storage';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -25,9 +28,13 @@ const useStyles = makeStyles((theme) => ({
 		width: '50px',
 		height: '50px'
 	},
+	avatar: {
+		display: 'flex',
+		alignItems: 'center'
+	},
 	username: {
-		paddingRight: theme.spacing(3),
 		color: theme.palette.white,
+		cursor: 'pointer'
 	}
 }));
 
@@ -35,7 +42,10 @@ const Topbar = props => {
 	const { className, i18n, t, ...rest } = props;
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [anchorAvatarEl, setAnchorAvatarEl] = useState(null);
+  const [avatarOpen, setAvatarOpen] = useState(Boolean(anchorEl));
 	const [selectedLanguage, setLanguage] = useState('PL');
+	const history = useHistory();
 
 	const handleLanguageClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -49,6 +59,23 @@ const Topbar = props => {
 		setAnchorEl(null);
 	};
 
+	const handleMenu = (event) => {
+    setAnchorAvatarEl(event.currentTarget);
+    setAvatarOpen(true);
+  };
+
+	const handleCloseAvatarDropdown = () => {
+    setAnchorAvatarEl(null);
+    setAvatarOpen(false);
+  };
+
+
+	const handleLogout = () => {
+		handleCloseAvatarDropdown();
+    storage.removeStorage('token');
+    history.push('/login');
+  }
+
 	return (
 		<SiteInfoContextConsumer>
 			{ (props) => (
@@ -59,7 +86,7 @@ const Topbar = props => {
 					position="fixed"
 				>
 					<Toolbar className={classes.toolBar}>
-						<RouterLink to="/">
+						<RouterLink to="/dashboard">
 							<Button
 								startIcon={<LogoIcon className={classes.logoButton} />}
 							>
@@ -108,10 +135,36 @@ const Topbar = props => {
 									{selectedLanguage !== "ES" && <MenuItem onClick={handleClose} >ES</MenuItem>}
 								</Menu>
 								<Divider orientation="vertical" flexItem />
-								<Typography className={classes.username}>
-									Zalogowany jaki: Jan Kowalski
-								</Typography>
-								<Avatar alt="an Kowalski" src="/static/images/avatar/1.jpg" />
+								<div className={classes.avatar}>
+									<Typography className={classes.username} onClick={handleMenu}>
+										Zalogowany jaki: Jan Kowalski
+									</Typography>
+									<IconButton
+										aria-label="account of current user"
+										aria-controls="menu-appbar"
+										aria-haspopup="true"
+										onClick={handleMenu}
+									>
+										<AccountCircle className={classes.avataricon}/>
+									</IconButton>
+									<Menu
+										id="menu-appbar"
+										anchorEl={anchorAvatarEl}
+										anchorOrigin={{
+											vertical: 'top',
+											horizontal: 'right',
+										}}
+										keepMounted
+										transformOrigin={{
+											vertical: 'top',
+											horizontal: 'right',
+										}}
+										open={avatarOpen}
+										onClose={handleCloseAvatarDropdown}
+									>
+										<MenuItem onClick={handleLogout}>Wyloguj</MenuItem>
+									</Menu>
+								</div>
 							</Grid>
 						</div>
 					</Toolbar>
